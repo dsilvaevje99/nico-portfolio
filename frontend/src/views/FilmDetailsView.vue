@@ -1,11 +1,11 @@
 <template>
-  <p>About</p>
+  <p>Film details</p>
 </template>
 
 <script lang="ts" setup>
 import { onBeforeMount } from "vue";
 
 onBeforeMount(() =>
-  document.documentElement.setAttribute("data-theme", "light")
+  document.documentElement.setAttribute("data-theme", "dark")
 );
 </script>

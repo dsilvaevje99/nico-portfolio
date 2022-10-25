@@ -1,5 +1,5 @@
 <template>
-  <p>About</p>
+  <p>Photography</p>
 </template>
 
 <script lang="ts" setup>

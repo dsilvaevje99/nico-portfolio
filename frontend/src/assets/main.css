@@ -1,35 +1,37 @@
-@import './base.css';
+@import "./reset.css";
+@import "./fonts/fonts.css";
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-
-  font-weight: normal;
+:root {
+  --bg-color: #ffffff;
+  --text-primary: #0c0c0c;
+  --text-secondary: #9b9b9b;
+  --text-tertiary: #eaeaea;
+  --logo-filter: brightness(0) saturate(100%) invert(0%) sepia(29%)
+    saturate(527%) hue-rotate(357deg) brightness(109%) contrast(91%);
+  --alert-color: #ee0c0c;
+  --page-padding: 10rem;
+  --text-hover-transition: color 500ms;
+}
+[data-theme="dark"] {
+  --bg-color: #0c0c0c;
+  --text-primary: #ffffff;
+  --text-secondary: #6c6c6c;
+  --text-tertiary: #1c1c1c;
+  --logo-filter: none;
+}
+[data-theme="admin"] {
+  --bg-color: #eaeaea;
 }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
+body {
+  background-color: var(--bg-color);
+  transition: background-color 500ms;
+  color: var(--text-primary);
+  font-family: Roboto, arial;
 }
 
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
-}
-
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
+.title {
+  font-family: Outfit, arial;
+  font-weight: 800;
+  font-size: 4rem;
 }
