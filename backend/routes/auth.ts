@@ -2,18 +2,17 @@ import * as bodyParser from "body-parser";
 import * as express from "express";
 import { Logger } from "../logger/logger";
 
-class User {
+class AuthAPI {
   public express: express.Application;
   public logger: Logger;
 
-  // array to hold users
-  public users: any[];
+  public loggedIn: Boolean;
 
   constructor() {
     this.express = express();
     this.middleware();
     this.routes();
-    this.users = [];
+    this.loggedIn = false;
     this.logger = new Logger();
   }
 
@@ -24,31 +23,28 @@ class User {
   }
 
   private routes(): void {
-    // request to get all the users
-    this.express.get("/users", (req, res, next) => {
+    this.express.get("/login", (req, res, next) => {
       this.logger.info("url:::::::" + req.url);
-      res.json(this.users);
+      this.loggedIn = true;
+      res.json("Logging in");
     });
 
-    // request to get all the users by userName
-    this.express.get("/users/:userName", (req, res, next) => {
+    this.express.get("/logout", (req, res, next) => {
       this.logger.info("url:::::::" + req.url);
-      const user = this.users.filter(function (user) {
-        if (req.params.userName === user.userName) {
-          return user;
-        }
-      });
-      res.json(user);
+      this.loggedIn = false;
+      res.json("Logging out");
     });
 
-    // request to post the user
-    // req.body has object of type {firstName:"fnam1",lastName:"lnam1",userName:"username1"}
+    this.express.get("/login/status", (req, res, next) => {
+      this.logger.info("url:::::::" + req.url);
+      res.json(this.loggedIn);
+    });
+
     this.express.post("/user", (req, res, next) => {
       this.logger.info("url:::::::" + req.url);
-      this.users.push(req.body.user);
-      res.json(this.users);
+      res.json(`Adding user ${req.body}`);
     });
   }
 }
 
-export default new User().express;
+export default new AuthAPI().express;

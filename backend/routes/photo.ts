@@ -1,19 +1,19 @@
 import * as bodyParser from "body-parser";
 import * as express from "express";
 import { Logger } from "../logger/logger";
-import Film from "./film";
-import Photo from "./photo";
-import Contact from "./contact";
-import Auth from "./auth";
+import { Photo } from "../../common-types";
 
-class Routes {
+class PhotoAPI {
   public express: express.Application;
   public logger: Logger;
+
+  public photos: Photo[];
 
   constructor() {
     this.express = express();
     this.middleware();
     this.routes();
+    this.photos = [];
     this.logger = new Logger();
   }
 
@@ -24,11 +24,17 @@ class Routes {
   }
 
   private routes(): void {
-    this.express.use("/", Film);
-    this.express.use("/", Photo);
-    this.express.use("/", Contact);
-    this.express.use("/", Auth);
+    this.express.get("/photos", (req, res, next) => {
+      this.logger.info("url:::::::" + req.url);
+      res.json(this.photos);
+    });
+
+    this.express.post("/photos", (req, res, next) => {
+      this.logger.info("url:::::::" + req.url);
+      this.photos.push(req.body.photo);
+      res.json(this.photos);
+    });
   }
 }
 
-export default new Routes().express;
+export default new PhotoAPI().express;
