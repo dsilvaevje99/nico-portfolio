@@ -1,0 +1,27 @@
+@media only screen and (min-width: 800px) {
+  :root {
+    --page-padding: 3rem;
+  }
+
+  .logo {
+    padding: 2rem 0;
+  }
+
+  .nav--toggle-btn {
+    font-size: 2.5rem;
+  }
+
+  .nav--container {
+    width: 70vw;
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+  :root {
+    --page-padding: 7rem;
+  }
+
+  .nav--container {
+    width: 50vw;
+  }
+}

@@ -1,0 +1,45 @@
+@media only screen and (min-width: 1400px) {
+  .nav--toggle-btn {
+    display: none;
+  }
+
+  :root {
+    --page-padding: 10rem;
+  }
+
+  .logo {
+    padding: 3rem 0;
+  }
+
+  .nav--big-screens {
+    display: flex;
+    align-items: flex-end;
+    height: fit-content;
+    transform: translateX(1.8em) translateY(-0.6em);
+  }
+
+  .nav-link {
+    font-size: 3rem;
+    padding: 0 0.5em;
+  }
+}
+
+@media only screen and (min-width: 1500px) {
+  .nav--big-screens {
+    transform: translateX(2em) translateY(-0.9em);
+  }
+
+  .nav-link {
+    font-size: 3.5rem;
+  }
+}
+
+@media only screen and (min-width: 1650px) {
+  .nav--big-screens {
+    transform: translateX(2.5em) translateY(-0.9em);
+  }
+
+  .nav-link {
+    font-size: 4rem;
+  }
+}

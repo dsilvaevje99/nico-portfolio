@@ -1,5 +1,9 @@
 @import "./reset.css";
 @import "./fonts/fonts.css";
+@import "./animations.css";
+
+/* THESE STYLES ARE COMMON FOR ALL SCREENS / FALLBACK STYLING */
+/* The screen-specific CSS files will override these */
 
 :root {
   --bg-color: #ffffff;
@@ -9,7 +13,6 @@
   --logo-filter: brightness(0) saturate(100%) invert(0%) sepia(29%)
     saturate(527%) hue-rotate(357deg) brightness(109%) contrast(91%);
   --alert-color: #ee0c0c;
-  --page-padding: 10rem;
   --text-hover-transition: color 500ms;
 }
 [data-theme="dark"] {
@@ -23,15 +26,98 @@
   --bg-color: #eaeaea;
 }
 
-body {
+body,
+html {
   background-color: var(--bg-color);
   transition: background-color 500ms;
   color: var(--text-primary);
   font-family: Roboto, arial;
+  overflow-x: hidden;
+  height: 100%;
+  position: relative;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+  padding-left: var(--page-padding);
+}
+
+.logo {
+  filter: var(--logo-filter);
+  width: 6rem;
 }
 
 .title {
   font-family: Outfit, arial;
   font-weight: 800;
-  font-size: 4rem;
+}
+
+.nav-link {
+  text-decoration: none;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  transition: var(--text-hover-transition);
+}
+
+.nav-link:hover {
+  color: var(--text-primary);
+}
+
+.nav-link--lighter {
+  color: var(--text-tertiary);
+}
+
+.router-link-exact-active {
+  color: var(--text-primary);
+}
+
+.slide-in {
+  animation: slide-in 0.1s forwards;
+  -webkit-animation: slide-in 0.1s forwards;
+}
+
+.slide-out {
+  animation: slide-out 0.1s forwards;
+  -webkit-animation: slide-out 0.1s forwards;
+}
+
+.social--container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+  font-size: 2rem;
+}
+
+.social--container > * {
+  padding: 0 1rem;
+}
+
+.social--container > img {
+  width: 2rem;
+}
+
+footer {
+  text-align: center;
+  padding: 2rem var(--page-padding);
+  opacity: 0.5;
+}
+
+footer > .social--container > * {
+  font-size: 1.5rem;
+  width: 1.5rem;
+}
+
+footer > p {
+  margin-top: 1rem;
+  font-size: 0.8em;
 }
