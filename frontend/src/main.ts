@@ -12,8 +12,9 @@ import {
   faArrowDown,
   faAt,
   faKey,
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import { faUser, faBuilding } from "@fortawesome/free-regular-svg-icons";
+import { faBuilding } from "@fortawesome/free-regular-svg-icons";
 import { faInstagram, faImdb } from "@fortawesome/free-brands-svg-icons";
 
 library.add(

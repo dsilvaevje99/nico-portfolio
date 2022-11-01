@@ -24,6 +24,7 @@
 }
 [data-theme="admin"] {
   --bg-color: #eaeaea;
+  --text-tertiary: #ffffff;
 }
 
 .sr-only:not(:focus):not(:active) {
@@ -293,4 +294,25 @@ footer > p {
 }
 .carousel__pagination-button--active::after {
   background-color: var(--text-secondary);
+}
+
+#login--container {
+  display: flex;
+  flex-direction: column;
+}
+#login--h1 {
+  transform: translateX(-0.15em);
+}
+#login--form-container {
+  display: flex;
+  justify-content: center;
+  padding-top: 20vh;
+}
+#login-form {
+  width: 20vw;
+  min-width: 18rem;
+  max-width: 25rem;
+  display: grid;
+  grid-template-rows: auto auto auto;
+  row-gap: 1rem;
 }

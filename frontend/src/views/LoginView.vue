@@ -1,9 +1,15 @@
 <template>
-  <p>Login</p>
+  <div id="login--container">
+    <h1 class="title" id="login--h1">Login</h1>
+    <div id="login--form-container">
+      <TheLoginForm />
+    </div>
+  </div>
 </template>
 
 <script lang="ts" setup>
 import { onBeforeMount } from "vue";
+import TheLoginForm from "@/components/forms/TheLoginForm.vue";
 
 onBeforeMount(() =>
   document.documentElement.setAttribute("data-theme", "admin")

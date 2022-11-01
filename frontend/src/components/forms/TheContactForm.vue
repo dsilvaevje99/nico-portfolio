@@ -5,7 +5,7 @@
       name="fullName"
       label="Full name"
       formId="contact-form"
-      icon="fa-regular fa-user"
+      icon="fa-solid fa-user"
       required
       displayAsterix
       :rules="nameRules"

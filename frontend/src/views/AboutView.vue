@@ -88,7 +88,7 @@
 <script lang="ts" setup>
 import { onBeforeMount } from "vue";
 import ImageCarousel from "@/components/photo_displayers/ImageCarousel.vue";
-import TheContactForm from "@/components/TheContactForm.vue";
+import TheContactForm from "@/components/forms/TheContactForm.vue";
 
 onBeforeMount(() =>
   document.documentElement.setAttribute("data-theme", "light")

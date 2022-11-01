@@ -17,3 +17,13 @@ export const inquiryRules = [
   (v: string) => v.length > 0 || "Inquiry cannot be empty",
   (v: string) => v.length <= 300 || "Inquiry cannot exceed 300 characters",
 ];
+
+export const usernameRules = [
+  (v: string) => v.length > 0 || "Username cannot be empty",
+  (v: string) => v.length <= 20 || "Username cannot exceed 20 characters",
+];
+
+export const passwordRules = [
+  (v: string) => v.length > 0 || "Password cannot be empty",
+  (v: string) => v.length <= 30 || "Password cannot exceed 30 characters",
+];
