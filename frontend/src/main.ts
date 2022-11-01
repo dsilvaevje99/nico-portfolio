@@ -6,10 +6,27 @@ import router from "./router";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBars,
+  faXmark,
+  faArrowDown,
+  faAt,
+  faKey,
+} from "@fortawesome/free-solid-svg-icons";
+import { faUser, faBuilding } from "@fortawesome/free-regular-svg-icons";
 import { faInstagram, faImdb } from "@fortawesome/free-brands-svg-icons";
 
-library.add(faBars, faXmark, faInstagram, faImdb);
+library.add(
+  faBars,
+  faXmark,
+  faArrowDown,
+  faUser,
+  faAt,
+  faBuilding,
+  faKey,
+  faInstagram,
+  faImdb
+);
 
 import "./assets/main.css";
 import "./assets/small-screens.css";

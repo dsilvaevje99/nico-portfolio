@@ -26,15 +26,32 @@
   --bg-color: #eaeaea;
 }
 
+.sr-only:not(:focus):not(:active) {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
 body,
 html {
   background-color: var(--bg-color);
   transition: background-color 500ms;
   color: var(--text-primary);
   font-family: Roboto, arial;
+  font-weight: 300;
   overflow-x: hidden;
   height: 100%;
   position: relative;
+  scroll-behavior: smooth;
+}
+
+p {
+  line-height: 1.2;
+  color: var(--text-primary);
 }
 
 .page-container {
@@ -59,11 +76,11 @@ header {
 .title {
   font-family: Outfit, arial;
   font-weight: 800;
+  text-transform: uppercase;
 }
 
 .nav-link {
   text-decoration: none;
-  text-transform: uppercase;
   color: var(--text-secondary);
   transition: var(--text-hover-transition);
 }
@@ -88,6 +105,87 @@ header {
 .slide-out {
   animation: slide-out 0.1s forwards;
   -webkit-animation: slide-out 0.1s forwards;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.float-right {
+  float: right;
+}
+
+.input--container {
+  position: relative;
+  display: flex;
+}
+
+.input--container > input,
+.input--container > textarea {
+  flex: 1;
+  font-family: Roboto, arial;
+  font-size: 1rem;
+  padding: 1em;
+  border: none;
+  border-radius: 0;
+  resize: none;
+}
+
+.input--container > textarea {
+  padding-bottom: 0;
+}
+
+#inquiry--bottom-area {
+  display: flex;
+  background-color: var(--bg-color);
+  padding: 0.5em 1em;
+  color: var(--text-secondary);
+  font-size: 0.8em;
+}
+
+#inquiry--counter {
+  width: 100%;
+  padding: 0.3em 0;
+  text-align: right;
+}
+
+.input--container > .input--has-icon {
+  padding-left: 3em;
+}
+
+.input--container > .input--invalid-state {
+  border: 1px solid var(--alert-color);
+  outline-color: var(--alert-color);
+}
+
+.input--container > .input--is-required {
+  padding-right: 3em;
+}
+
+.input--container > svg,
+.input--container > .input--required-asterix {
+  position: absolute;
+  top: 50%;
+}
+
+.input--container > svg {
+  transform: translateY(-50%);
+  width: 2em;
+  left: 0.5em;
+  color: var(--text-primary);
+}
+
+.input--container > .input--required-asterix {
+  transform: translateY(-30%);
+  color: var(--alert-color);
+  font-size: 1.2em;
+  right: 1em;
+}
+
+.input--error-msg {
+  color: var(--alert-color);
+  font-size: 0.8em;
+  margin-top: 0.2em;
 }
 
 .social--container {
@@ -120,4 +218,79 @@ footer > .social--container > * {
 footer > p {
   margin-top: 1rem;
   font-size: 0.8em;
+  font-weight: 400;
+}
+
+.btn {
+  background: none;
+  border: none;
+  text-transform: uppercase;
+  padding: 1em;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background-color 500ms;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn--size-small {
+  padding: 0.3em;
+  font-size: 0.8em;
+}
+
+.btn > svg {
+  margin-right: 0.5em;
+}
+
+.btn--filled-primary {
+  background-color: var(--text-primary);
+  color: var(--bg-color);
+  padding: 1em 1.5em;
+}
+
+.btn--text-primary {
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+}
+
+.btn--text-secondary {
+  color: var(--text-secondary);
+}
+
+.btn--text-primary:hover,
+.btn--text-secondary:hover {
+  background-color: var(--text-tertiary);
+}
+
+#about--container {
+  display: grid;
+}
+
+.carousel--image-fallback {
+  background-color: var(--text-secondary);
+  min-height: 30vh;
+  max-height: 30rem;
+  width: 100%;
+  margin: 0 4px;
+}
+
+/* Override default styles for carousel component */
+.carousel__prev,
+.carousel__next {
+  color: var(--text-primary);
+}
+.carousel__pagination-button::after {
+  display: block;
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background-color: var(--text-tertiary);
+  transition: background-color 500ms;
+}
+.carousel__pagination-button--active::after {
+  background-color: var(--text-secondary);
 }

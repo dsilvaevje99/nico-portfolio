@@ -1,5 +1,5 @@
 <template>
-  <button class="nav--toggle-btn" @click="open = !open">
+  <button class="btn nav--toggle-btn" @click="open = !open">
     <font-awesome-icon v-if="open" icon="fa-solid fa-xmark" />
     <font-awesome-icon v-else icon="fa-solid fa-bars" />
   </button>
