@@ -11,10 +11,10 @@
         <img :src="img" :alt="img" />
       </div>
     </div>
+    <PopupModal :open="open" @close="open = false">
+      <img :src="modalPhoto" :alt="modalPhoto" />
+    </PopupModal>
   </div>
-  <PopupModal :open="open" @close="open = false">
-    <img :src="modalPhoto" :alt="modalPhoto" />
-  </PopupModal>
 </template>
 
 <script lang="ts" setup>
