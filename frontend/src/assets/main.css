@@ -230,6 +230,7 @@ footer > p {
   font-weight: bold;
   text-decoration: none;
   transition: background-color 500ms;
+  cursor: pointer;
 }
 
 .btn:disabled {
@@ -244,6 +245,10 @@ footer > p {
 
 .btn > svg {
   margin-right: 0.5em;
+}
+
+.btn > svg.iconRight {
+  margin: 0 0 0 0.5em;
 }
 
 .btn--filled-primary {
@@ -316,3 +321,53 @@ footer > p {
   grid-template-rows: auto auto auto;
   row-gap: 1rem;
 }
+
+/* Films page grid layout */
+.film--tile-container {
+  cursor: pointer;
+}
+.film--tile-container:hover > .film--tile-thumbnail > img {
+  transform: scale(1.2);
+}
+.film--tile-thumbnail {
+  aspect-ratio: 16/9;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+.film--tile-thumbnail > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  overflow: hidden;
+  transition: transform 500ms ease;
+}
+.film--featured-badge {
+  position: absolute;
+  top: 1.5rem;
+  left: 0;
+  padding: 0.5rem 1rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: var(--text-secondary);
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.film--tile-title {
+  color: var(--text-primary);
+  font-family: Roboto, arial;
+  font-size: 1.2rem;
+  font-weight: bold;
+  transform: translateX(1rem) translateY(-1.5rem);
+  margin: 0;
+  padding: 1rem 1rem 0 1rem;
+  background-color: var(--bg-color);
+  width: max-content;
+  max-width: calc(100% - 4rem);
+}
+.film--tile-description {
+  margin: -1rem 0 1rem 2rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+/* ---------------------- */

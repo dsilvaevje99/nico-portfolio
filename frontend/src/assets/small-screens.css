@@ -180,6 +180,22 @@ h2 {
   background-color: var(--text-tertiary);
 }
 
+/* Films page grid layout */
+#films--grid {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-auto-rows: auto;
+  grid-gap: 2rem;
+  margin: 0 var(--page-padding);
+}
+.film--featured-film {
+  grid-row: 1;
+}
+.film--featured-badge {
+  display: none;
+}
+/* ---------------------- */
+
 @media only screen and (min-width: 500px) {
   #about--process-section {
     grid-template-columns: 30% 40% 30%;
