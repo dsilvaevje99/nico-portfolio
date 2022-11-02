@@ -327,7 +327,8 @@ footer > p {
 .film--tile-container {
   cursor: pointer;
 }
-.film--tile-container:hover > .film--tile-thumbnail > img {
+.film--tile-container:hover > .film--tile-thumbnail > img,
+.photo--container:hover > img {
   transform: scale(1.2);
 }
 .film--tile-thumbnail {
@@ -337,7 +338,8 @@ footer > p {
   position: relative;
   background-color: var(--text-tertiary);
 }
-.film--tile-thumbnail > img {
+.film--tile-thumbnail > img,
+.photo--container > img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -373,3 +375,17 @@ footer > p {
   white-space: nowrap;
 }
 /* ---------------------- */
+
+.modal--container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  max-width: 75vw;
+  max-height: 75vh;
+  z-index: 5;
+}
+
+.modal--container > img {
+  max-width: 100%;
+}

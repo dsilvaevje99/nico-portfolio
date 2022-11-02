@@ -4,7 +4,7 @@
     <font-awesome-icon v-else icon="fa-solid fa-bars" />
   </button>
   <div
-    :class="`nav--overlay ${open && 'nav--overlay-active'}`"
+    :class="`overlay--fullscreen ${open && 'overlay--fullscreen-active'}`"
     @click="open = false"
   ></div>
   <div :class="`nav--container ${open ? 'slide-in' : 'slide-out'}`">
