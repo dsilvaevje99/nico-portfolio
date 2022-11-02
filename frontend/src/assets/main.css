@@ -80,6 +80,10 @@ header {
   text-transform: uppercase;
 }
 
+.nudge-right {
+  transform: translateX(-0.15em);
+}
+
 .nav-link {
   text-decoration: none;
   color: var(--text-secondary);
@@ -305,9 +309,6 @@ footer > p {
   display: flex;
   flex-direction: column;
 }
-#login--h1 {
-  transform: translateX(-0.15em);
-}
 #login--form-container {
   display: flex;
   justify-content: center;
@@ -334,6 +335,7 @@ footer > p {
   width: 100%;
   overflow: hidden;
   position: relative;
+  background-color: var(--text-tertiary);
 }
 .film--tile-thumbnail > img {
   width: 100%;

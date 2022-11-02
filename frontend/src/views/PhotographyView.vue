@@ -1,5 +1,7 @@
 <template>
-  <p>Photography</p>
+  <div class="photography--container">
+    <h1 class="title nudge-right">Photography</h1>
+  </div>
 </template>
 
 <script lang="ts" setup>

@@ -1,6 +1,6 @@
 <template>
   <div id="login--container">
-    <h1 class="title" id="login--h1">Login</h1>
+    <h1 class="title nudge-right">Login</h1>
     <div id="login--form-container">
       <TheLoginForm />
     </div>

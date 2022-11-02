@@ -1,6 +1,6 @@
 <template>
   <div id="films--container">
-    <h1 class="title">Films</h1>
+    <h1 class="title nudge-right">Films</h1>
     <div id="films--grid">
       <router-link
         v-for="(film, index) in films"
