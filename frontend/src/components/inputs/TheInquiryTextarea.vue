@@ -29,7 +29,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps, defineEmits, ref, computed } from "vue";
+import { ref, computed } from "vue";
 import { inquiryRules } from "@/form-rules";
 
 const props = defineProps({
