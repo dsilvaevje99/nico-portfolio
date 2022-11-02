@@ -23,9 +23,9 @@
   margin: 0;
 }
 
-.nav--overlay {
+.overlay--fullscreen {
   display: none;
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
@@ -35,12 +35,12 @@
   background-color: rgba(0, 0, 0, 0.75);
 }
 
-.nav--overlay-active {
+.overlay--fullscreen-active {
   display: block;
 }
 
 .nav--container {
-  position: absolute;
+  position: fixed;
   z-index: 2;
   top: 0;
   right: 0;
@@ -195,6 +195,33 @@ h2 {
   display: none;
 }
 /* ---------------------- */
+
+/* Photography page grid layout */
+#photography--grid {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-auto-rows: 1fr;
+  padding: 0 4px;
+  grid-gap: 4px;
+  width: calc(100% - 4px * 3);
+}
+.photo--container {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--text-tertiary);
+  cursor: pointer;
+}
+.photo--container:nth-child(2n) {
+  grid-row: span 2;
+}
+.photo--container:nth-child(3n) {
+  grid-row: span 3;
+}
+.photo--container:nth-child(5n) {
+  grid-row: span 2;
+}
+/* ---------------------------- */
 
 @media only screen and (min-width: 500px) {
   #about--process-section {

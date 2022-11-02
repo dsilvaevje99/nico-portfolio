@@ -128,6 +128,14 @@
     grid-column: 2/5;
   }
   /* ---------------------- */
+
+  /* Photography page grid layout */
+  #photography--grid {
+    grid-template-columns: 25% 25% 25% 25%;
+    padding: 0 var(--page-padding);
+    width: calc(100% - 4px * 3 - var(--page-padding) * 2);
+  }
+  /* ---------------------------- */
 }
 
 @media only screen and (min-width: 1500px) {
