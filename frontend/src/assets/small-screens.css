@@ -196,8 +196,61 @@ h2 {
 }
 /* ---------------------- */
 
+/* Film details page grid layout */
+#film-details--container {
+  display: grid;
+  grid-gap: 1rem;
+}
+#film-details--container h2 {
+  margin: 0;
+}
+#film-details--title,
+#film-details--details,
+#film-details--skip,
+#film-details--frames > .photography--grid {
+  padding: 0 var(--page-padding);
+}
+#film-details--frames > .photography--grid {
+  width: calc(100% - var(--page-padding) * 2 - 4px);
+}
+#film-details--title > h1 {
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  font-weight: bold;
+  transform: none;
+  padding-bottom: 0.5rem;
+}
+#film-details--title > p {
+  color: var(--text-secondary);
+}
+#film-details--player {
+  width: calc(100vw - 8px);
+  padding: 0 4px;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+}
+#film-details--player > div {
+  width: 100% !important;
+  height: auto !important;
+}
+#film-details--player > div > iframe {
+  width: 100% !important;
+  height: auto !important;
+  aspect-ratio: 16/9 !important;
+}
+#film-details--container td:nth-child(odd) {
+  color: var(--text-secondary);
+  padding-right: 2rem;
+  line-height: 2;
+}
+#film-details--credits > table {
+  margin: 0 var(--page-padding);
+}
+/* ---------------------------- */
+
 /* Photography page grid layout */
-#photography--grid {
+.photography--grid {
   display: grid;
   grid-template-columns: 50% 50%;
   grid-auto-rows: 1fr;

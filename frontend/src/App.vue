@@ -1,5 +1,5 @@
 <template>
-  <div class="page-container">
+  <div id="page--container">
     <div>
       <TheHeader />
       <router-view v-slot="{ Component }">

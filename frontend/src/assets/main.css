@@ -55,7 +55,7 @@ p {
   color: var(--text-primary);
 }
 
-.page-container {
+#page--container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;

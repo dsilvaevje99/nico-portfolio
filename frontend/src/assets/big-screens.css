@@ -129,11 +129,58 @@
   }
   /* ---------------------- */
 
+  #film-details--player {
+    width: calc(100vw - var(--page-padding) * 2);
+    padding: 0 var(--page-padding);
+  }
+
   /* Photography page grid layout */
-  #photography--grid {
+  .photography--grid {
     grid-template-columns: 25% 25% 25% 25%;
     padding: 0 var(--page-padding);
     width: calc(100% - 4px * 3 - var(--page-padding) * 2);
+  }
+  /* ---------------------------- */
+
+  /* Film details page grid layout */
+  #film-details--container {
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 0;
+  }
+  #film-details--player {
+    grid-column: 1/4;
+  }
+  #film-details--title > h1 {
+    display: block;
+    font-size: 2.5rem;
+    padding-bottom: 1rem;
+  }
+  #film-details--skip {
+    display: none;
+  }
+  #film-details--details {
+    grid-row: 2;
+    padding: 0;
+    padding-top: 3rem;
+    justify-self: center;
+  }
+  #film-details--credits {
+    grid-row: 2;
+    grid-column: 3;
+    justify-self: end;
+  }
+  #film-details--credits > h2 {
+    text-align: end;
+    transform: translateX(0.2em);
+  }
+  #film-details--credits > table {
+    margin-left: 0;
+  }
+  #film-details--frames {
+    grid-column: 1/4;
+  }
+  #film-details--frames > .photography--grid {
+    width: calc(100% - var(--page-padding) * 2 - 12px);
   }
   /* ---------------------------- */
 }

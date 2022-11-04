@@ -94,6 +94,28 @@
   #contact-form {
     width: 75vw;
   }
+
+  /* Film details page grid layout */
+  #film-details--container {
+    grid-template-columns: repeat(2, calc(50% - 0.5rem));
+  }
+  #film-details--player {
+    grid-column: 1/3;
+  }
+  #film-details--title,
+  #film-details--skip {
+    padding-right: 0;
+  }
+  #film-details--details {
+    grid-column: 2;
+    grid-row: span 2;
+    padding-left: 0;
+    justify-self: end;
+  }
+  #film-details--frames {
+    grid-column: 1/3;
+  }
+  /* ---------------------------- */
 }
 
 @media only screen and (min-width: 1000px) {

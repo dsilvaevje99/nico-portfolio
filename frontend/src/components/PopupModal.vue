@@ -11,6 +11,7 @@
 </template>
 
 <script lang="ts" setup>
+defineEmits(["close"]);
 const props = defineProps({
   open: {
     type: Boolean,
