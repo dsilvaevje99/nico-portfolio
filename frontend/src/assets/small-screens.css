@@ -15,8 +15,11 @@
   color: var(--text-primary);
   font-size: 2rem;
   z-index: 3;
-  margin-right: var(--page-padding);
-  padding: 0;
+  position: fixed;
+  top: 1rem;
+  right: var(--page-padding);
+  padding: 0 0.35rem;
+  background-color: var(--bg-color);
 }
 
 .nav--toggle-btn > svg {
