@@ -1,7 +1,7 @@
 <template>
   <footer>
     <SocialIcons />
-    <p>© 2022 Nicolas Romero</p>
+    <p>© 2022 Nicolás Romero</p>
   </footer>
 </template>
 
