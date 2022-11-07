@@ -18,8 +18,8 @@
     --page-padding: 3rem;
   }
 
-  .logo {
-    padding: 2rem 0;
+  #logo-link {
+    margin: 2rem 0;
   }
 
   .nav--toggle-btn {

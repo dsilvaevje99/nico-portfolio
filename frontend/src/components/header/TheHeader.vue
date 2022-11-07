@@ -1,6 +1,8 @@
 <template>
   <header>
-    <img alt="Nicolas Romero" class="logo" src="@/assets/logo.svg" />
+    <RouterLink to="/" id="logo-link">
+      <img alt="Nicolas Romero" id="logo-img" src="@/assets/logo.svg" />
+    </RouterLink>
     <nav class="nav--big-screens">
       <RouterLink to="/" class="title nav-link">Films</RouterLink>
       <RouterLink to="/photography" class="title nav-link"

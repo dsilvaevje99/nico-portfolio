@@ -7,8 +7,8 @@
     --page-padding: 10rem;
   }
 
-  .logo {
-    padding: 3rem 0;
+  #logo-link {
+    margin: 3rem 0;
   }
 
   .nav--big-screens {
