@@ -35,10 +35,7 @@
       </table>
     </div>
     <div id="film-details--skip">
-      <a
-        class="btn btn--text-primary float-right"
-        href="#film-details--credits"
-      >
+      <a class="btn btn--text-primary float-right" href="#credits">
         <font-awesome-icon icon="fa-solid fa-arrow-down" />
         Credits
       </a>
@@ -47,7 +44,7 @@
       <h2 class="title">Frames</h2>
       <ImageGrid :images="photos" />
     </div>
-    <div id="film-details--credits">
+    <div id="credits">
       <h2 class="title">Credits</h2>
       <table>
         <tr>

@@ -164,16 +164,16 @@
     padding-top: 3rem;
     justify-self: center;
   }
-  #film-details--credits {
+  #credits {
     grid-row: 2;
     grid-column: 3;
     justify-self: end;
   }
-  #film-details--credits > h2 {
+  #credits > h2 {
     text-align: end;
     transform: translateX(0.2em);
   }
-  #film-details--credits > table {
+  #credits > table {
     margin-left: 0;
   }
   #film-details--frames {
