@@ -90,13 +90,6 @@ import { onBeforeMount } from "vue";
 import ImageCarousel from "@/components/photo_displayers/ImageCarousel.vue";
 import TheContactForm from "@/components/forms/TheContactForm.vue";
 
-const scrollToContact = () => {
-  const anchor = document.getElementById("contact");
-  const position = anchor?.getBoundingClientRect();
-
-  if (anchor && position) document.body.scrollTop = position.top;
-};
-
 onBeforeMount(() =>
   document.documentElement.setAttribute("data-theme", "light")
 );
