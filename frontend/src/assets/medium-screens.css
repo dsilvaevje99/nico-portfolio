@@ -54,7 +54,7 @@
     grid-column: 2;
     padding: 0 var(--page-padding) 1rem 30%;
   }
-  #about--title-contact {
+  #contact {
     text-align: right;
     transform: translateX(0.25em);
   }

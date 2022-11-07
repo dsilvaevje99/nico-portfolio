@@ -56,10 +56,10 @@
   }
   #about--title-process,
   #about--title-gallery,
-  #about--title-contact {
+  #contact {
     padding-top: 3rem;
   }
-  #about--title-contact {
+  #contact {
     text-align: right;
     transform: translateX(0.25em);
   }

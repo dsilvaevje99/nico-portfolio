@@ -19,7 +19,7 @@
         Dsakdjn asdkj ns adjna.s, fopnaop3fnfka l skalf a lak f. Qiufaf,
         asufbpoas afskj nkasnf mf. ams, jan lk amm.dffma.kw fmf.
       </p>
-      <a class="btn btn--text-primary" href="#about--title-contact">
+      <a class="btn btn--text-primary" href="#contact">
         <font-awesome-icon icon="fa-solid fa-arrow-down" />
         Contact
       </a>
@@ -78,7 +78,7 @@
     <section id="about--gallery-section">
       <ImageCarousel />
     </section>
-    <h2 class="title" id="about--title-contact">Contact</h2>
+    <h2 class="title" id="contact">Contact</h2>
     <section id="about--contact-section">
       <TheContactForm />
     </section>
@@ -89,6 +89,13 @@
 import { onBeforeMount } from "vue";
 import ImageCarousel from "@/components/photo_displayers/ImageCarousel.vue";
 import TheContactForm from "@/components/forms/TheContactForm.vue";
+
+const scrollToContact = () => {
+  const anchor = document.getElementById("contact");
+  const position = anchor?.getBoundingClientRect();
+
+  if (anchor && position) document.body.scrollTop = position.top;
+};
 
 onBeforeMount(() =>
   document.documentElement.setAttribute("data-theme", "light")

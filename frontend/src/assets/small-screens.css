@@ -63,7 +63,9 @@
   position: relative;
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  min-height: max-content;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .nav--mobile-screens {
