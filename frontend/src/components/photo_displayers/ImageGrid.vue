@@ -4,12 +4,12 @@
       v-for="img in props.images"
       class="photo--container"
       :key="img"
-      @click="openModal(img)"
+      @click="toggleModal(img)"
     >
       <img :src="img" :alt="img" />
     </div>
   </div>
-  <PopupModal :open="open" @close="open = false">
+  <PopupModal :open="open" @close="toggleModal">
     <img :src="modalImg" :alt="modalImg" />
   </PopupModal>
 </template>
@@ -27,8 +27,14 @@ const props = defineProps({
 const open = ref<boolean>(false);
 const modalImg = ref<string>("");
 
-const openModal = (img: string) => {
-  modalImg.value = img;
-  open.value = true;
+const toggleModal = (img?: string) => {
+  if (open.value) {
+    document.body.style.overflow = "initial";
+    open.value = false;
+  } else {
+    document.body.style.overflow = "hidden";
+    modalImg.value = img || "";
+    open.value = true;
+  }
 };
 </script>
