@@ -401,3 +401,7 @@ footer > p {
 .modal--container > img {
   max-width: 100%;
 }
+
+#not-found--container > div {
+  padding: 1rem var(--page-padding);
+}
