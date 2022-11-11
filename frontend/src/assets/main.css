@@ -99,7 +99,8 @@ header {
   -o-transition: var(--text-hover-transition);
 }
 
-.nav-link:hover {
+.nav-link:hover,
+.nav-link:focus {
   color: var(--text-primary);
 }
 
@@ -265,6 +266,10 @@ footer > p {
   margin: 0 0 0 0.5em;
 }
 
+.btn--icon-only > svg {
+  margin: 0;
+}
+
 .btn--filled-primary {
   background-color: var(--text-primary);
   color: var(--bg-color);
@@ -281,8 +286,20 @@ footer > p {
 }
 
 .btn--text-primary:hover,
-.btn--text-secondary:hover {
+.btn--text-secondary:hover,
+.btn--text-primary:focus,
+.btn--text-secondary:focus {
   background-color: var(--text-tertiary);
+}
+
+.btn--icon-only {
+  font-size: 2rem;
+  padding: 0;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #about--container {
@@ -339,6 +356,8 @@ footer > p {
   cursor: pointer;
 }
 .film--tile-container:hover > .film--tile-thumbnail > img,
+.photo--container:hover > img,
+.film--tile-container:focus > .film--tile-thumbnail > img,
 .photo--container:hover > img {
   transform: scale(1.2);
 }
@@ -400,6 +419,12 @@ footer > p {
 
 .modal--container > img {
   max-width: 100%;
+}
+
+#popup-close-btn {
+  position: absolute;
+  left: 100%;
+  bottom: 100%;
 }
 
 #not-found--container > div {

@@ -6,9 +6,18 @@
         v-for="(film, index) in films"
         :to="`/film/${film.slug}`"
         :key="film.id"
-        style="display: contents"
+        :class="`film--tile-container ${
+          film.featured ? 'film--featured-film' : ''
+        } ${
+          index !== 0 && index % 8 === 0
+            ? 'film--tile-big'
+            : index !== 0 && index % 4 === 0
+            ? 'film--tile-big film--tile-right'
+            : ''
+        }`"
+        :tabindex="film.featured ? 7 : 0"
       >
-        <FilmGridTile :film="film" :nr="index" />
+        <FilmGridTile :film="film" />
       </router-link>
     </div>
   </div>
