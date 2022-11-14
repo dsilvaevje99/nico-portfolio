@@ -1,6 +1,7 @@
 export interface Film {
   id: number;
   src: string;
+  thumbnail: string;
   title: string;
   slug: string;
   description: string;
@@ -11,6 +12,7 @@ export interface Film {
   company?: string;
   credits: Credit[];
   frames: Photo[];
+  featured: Boolean;
 }
 
 export interface Credit {

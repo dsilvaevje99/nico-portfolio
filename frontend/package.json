@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
+    "dev:host": "vite --host",
     "build": "run-p type-check build-only",
     "preview": "vite preview",
     "test:e2e": "start-server-and-test preview :4173 'cypress run --e2e'",
@@ -14,9 +15,17 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.2.0",
+    "@fortawesome/free-brands-svg-icons": "^6.2.0",
+    "@fortawesome/free-regular-svg-icons": "^6.2.0",
+    "@fortawesome/free-solid-svg-icons": "^6.2.0",
+    "@fortawesome/vue-fontawesome": "^3.0.1",
     "pinia": "^2.0.23",
     "vue": "^3.2.41",
-    "vue-router": "^4.1.5"
+    "vue-router": "^4.1.5",
+    "vue3-carousel": "^0.2.4",
+    "vue3-youtube": "^0.1.9",
+    "vite": "^3.1.8"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.4",
