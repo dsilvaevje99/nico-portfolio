@@ -5,12 +5,50 @@
     grid-row-gap: 2rem;
     grid-template-columns: 50% 50%;
   }
-  .film--featured-film {
-    grid-column: 1/3;
+
+  /* Featured film styles */
+  #featured-film--container {
+    flex-direction: row;
+    margin-bottom: 3rem;
   }
-  .film--featured-badge {
+  #featured-film--img {
+    width: 40vw;
+  }
+  #featured-film-details--container {
+    padding: 3rem 0 3rem 2rem;
+    justify-content: space-between;
+    row-gap: 0;
+  }
+  #featured-film-details--bg {
     display: initial;
+    position: absolute;
+    inset: 0;
+    width: 85%;
+    z-index: 1;
+    background: rgb(28, 28, 28);
+    background: linear-gradient(
+      130deg,
+      rgba(28, 28, 28, 1) 4%,
+      rgba(0, 0, 0, 1) 50%,
+      rgba(28, 28, 28, 1) 82%
+    );
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    transition: all 0.5s;
   }
+  #featured-film--container:hover #featured-film-details--bg {
+    width: 100%;
+    border-top-right-radius: 5%;
+    border-bottom-right-radius: 5%;
+  }
+  #featured-film-details--content {
+    row-gap: 2rem;
+  }
+  #featured-film--title {
+    padding: 0;
+    margin: 0;
+  }
+  /* -------------------- */
 }
 
 @media only screen and (min-width: 800px) {
@@ -96,6 +134,12 @@
     width: 75vw;
   }
 
+  /* Featured film styles */
+  #featured-film-details--container {
+    padding: 5rem 0 5rem 3rem;
+  }
+  /* -------------------- */
+
   /* Film details page grid layout */
   #film-details--container {
     grid-template-columns: repeat(2, calc(50% - 0.5rem));
@@ -145,5 +189,13 @@
   }
   #contact--inquiry-input {
     grid-row: 1/5;
+  }
+
+  #featured-film-details--bg {
+    width: 90%;
+  }
+  #featured-film-details--table {
+    display: initial;
+    width: max-content;
   }
 }

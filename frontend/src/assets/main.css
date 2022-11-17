@@ -377,16 +377,6 @@ footer > p {
   transition: transform 500ms ease;
   -o-transition: transform 500ms ease;
 }
-.film--featured-badge {
-  position: absolute;
-  top: 1.5rem;
-  left: 0;
-  padding: 0.5rem 1rem;
-  background-color: rgba(0, 0, 0, 0.5);
-  color: var(--text-secondary);
-  font-weight: bold;
-  text-transform: uppercase;
-}
 .film--tile-title {
   color: var(--text-primary);
   font-family: Roboto, arial;

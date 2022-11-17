@@ -1,21 +1,54 @@
 <template>
   <div id="films--container">
     <h1 class="title nudge-right">Films</h1>
+    <div id="featured-film--container">
+      <router-link :to="`/film/${featuredFilm?.slug}`" tabindex="7">
+        <img :src="featuredFilm?.thumbnail" id="featured-film--img" />
+      </router-link>
+      <div id="featured-film-details--container">
+        <div id="featured-film-details--bg"></div>
+        <div id="featured-film-details--content">
+          <h2 id="featured-film--title">{{ featuredFilm?.title }}</h2>
+          <p>{{ featuredFilm?.description }}</p>
+          <table id="featured-film-details--table">
+            <tr>
+              <td>Project type</td>
+              <td>Artistic</td>
+            </tr>
+            <tr>
+              <td>Date</td>
+              <td>Aug. 12th 2022</td>
+            </tr>
+            <tr>
+              <td>Location</td>
+              <td>Nice, France</td>
+            </tr>
+            <tr>
+              <td>Client</td>
+              <td>Someone</td>
+            </tr>
+            <tr>
+              <td>Production Company</td>
+              <td>Whatever</td>
+            </tr>
+          </table>
+        </div>
+        <router-link
+          :to="`/film/${featuredFilm?.slug}`"
+          class="btn btn--text-primary"
+          tabindex="8"
+        >
+          Learn more
+          <font-awesome-icon class="iconRight" icon="fa-solid fa-arrow-right" />
+        </router-link>
+      </div>
+    </div>
     <div id="films--grid">
       <router-link
-        v-for="(film, index) in films"
+        v-for="film in films"
         :to="`/film/${film.slug}`"
         :key="film.id"
-        :class="`film--tile-container ${
-          film.featured ? 'film--featured-film' : ''
-        } ${
-          index !== 0 && index % 8 === 0
-            ? 'film--tile-big'
-            : index !== 0 && index % 4 === 0
-            ? 'film--tile-big film--tile-right'
-            : ''
-        }`"
-        :tabindex="film.featured ? 7 : 0"
+        class="film--tile-container"
       >
         <FilmGridTile :film="film" />
       </router-link>
@@ -24,9 +57,11 @@
 </template>
 
 <script lang="ts" setup>
-import { onBeforeMount, ref } from "vue";
+import { onBeforeMount, ref, computed } from "vue";
 import type { Film } from "@/../../../common-types";
 import FilmGridTile from "@/components/film_displayers/FilmGridTile.vue";
+
+const featuredFilm = computed(() => films.value.find((f) => f.featured));
 
 const films = ref<Film[]>([
   {
