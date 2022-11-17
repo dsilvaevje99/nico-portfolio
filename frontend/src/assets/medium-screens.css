@@ -32,7 +32,14 @@
       rgba(0, 0, 0, 1) 50%,
       rgba(28, 28, 28, 1) 82%
     );
-    border-radius: 0 10000rem 10000rem 0;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    transition: all 0.5s;
+  }
+  #featured-film--container:hover #featured-film-details--bg {
+    width: 100%;
+    border-top-right-radius: 5%;
+    border-bottom-right-radius: 5%;
   }
   #featured-film-details--content {
     row-gap: 2rem;
