@@ -208,6 +208,46 @@ h2 {
 }
 /* ---------------------- */
 
+/* Featured film styles */
+#featured-film--container {
+  display: flex;
+  margin: 0 var(--page-padding) 5rem;
+  flex-direction: column;
+}
+#featured-film--img {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+}
+#featured-film-details--container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  row-gap: 1rem;
+}
+#featured-film-details--container > * {
+  z-index: 2;
+}
+#featured-film-details--bg {
+  display: none;
+}
+#featured-film-details--content {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+#featured-film--title {
+  color: var(--text-primary);
+  font-weight: bold;
+  font-size: 2rem;
+  transform: translateX(0);
+}
+#featured-film-details--table {
+  display: none;
+}
+/* -------------------- */
+
 /* Film details page grid layout */
 #film-details--container {
   display: grid;
@@ -251,7 +291,7 @@ h2 {
   height: auto !important;
   aspect-ratio: 16/9 !important;
 }
-#film-details--container td:nth-child(odd) {
+table td:nth-child(odd) {
   color: var(--text-secondary);
   padding-right: 2rem;
   line-height: 2;

@@ -1,3 +1,9 @@
+@media only screen and (min-width: 1200px) {
+  #featured-film--img {
+    width: 35vw;
+  }
+}
+
 @media only screen and (min-width: 1400px) {
   .nav--toggle-btn {
     display: none;
@@ -109,6 +115,14 @@
   #contact--inquiry-input {
     grid-row: 1/3;
   }
+  /* Featured film styles */
+  #featured-film-details--container {
+    padding: 7rem 4rem;
+  }
+  #featured-film-details--bg {
+    width: 75%;
+  }
+  /* ------------------- */
 
   /* Films page grid layout */
   #films--grid {
@@ -196,6 +210,10 @@
 
   .nav-link {
     font-size: 3.5rem;
+  }
+
+  #featured-film--img {
+    width: 30vw;
   }
 }
 
