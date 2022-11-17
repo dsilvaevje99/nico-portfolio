@@ -45,16 +45,10 @@
     </div>
     <div id="films--grid">
       <router-link
-        v-for="(film, index) in films"
+        v-for="film in films"
         :to="`/film/${film.slug}`"
         :key="film.id"
-        :class="`film--tile-container ${
-          index !== 0 && index % 8 === 0
-            ? 'film--tile-big'
-            : index !== 0 && index % 4 === 0
-            ? 'film--tile-big film--tile-right'
-            : ''
-        }`"
+        class="film--tile-container"
       >
         <FilmGridTile :film="film" />
       </router-link>

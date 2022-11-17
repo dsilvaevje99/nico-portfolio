@@ -128,18 +128,13 @@
   #films--grid {
     width: calc(100% - (var(--page-padding) * 2) - 3rem);
     grid-template-columns: 25% 25% 25% 25%;
+    grid-auto-rows: 1fr 11.5rem 1fr;
     grid-gap: 1rem;
   }
-  .film--featured-film {
-    grid-row: 1/4;
-    grid-column: 1/4;
-  }
-  .film--tile-big {
-    grid-column: 1/4;
-    grid-row: span 3;
-  }
-  .film--tile-right {
-    grid-column: 2/5;
+  #films--grid > a:nth-child(6n + 4),
+  #films--grid > a:nth-child(6n + 3) {
+    grid-column: span 2;
+    grid-row: span 2;
   }
   /* ---------------------- */
 

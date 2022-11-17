@@ -200,12 +200,6 @@ h2 {
   grid-gap: 2rem;
   margin: 0 var(--page-padding);
 }
-.film--featured-film {
-  grid-row: 1;
-}
-.film--featured-badge {
-  display: none;
-}
 /* ---------------------- */
 
 /* Featured film styles */
