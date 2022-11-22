@@ -9,6 +9,17 @@
   transform: translateY(2rem);
 }
 
+.reveal-enter-active,
+.reveal-leave-active {
+  transition: all 250ms ease;
+  -o-transition: all 250ms ease;
+}
+.reveal-enter-from,
+.reveal-leave-to {
+  opacity: 0;
+  transform: translateX(2rem);
+}
+
 @keyframes slide-in {
   0% {
     visibility: visible;

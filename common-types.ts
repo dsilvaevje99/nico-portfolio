@@ -1,5 +1,6 @@
 export interface Film {
   id: number;
+  placement: number;
   src: string;
   thumbnail: string;
   title: string;
