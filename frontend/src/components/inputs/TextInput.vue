@@ -29,7 +29,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+import useValidation from "@/composables/useValidation";
 
 const props = defineProps({
   modelValue: {
@@ -81,42 +81,9 @@ const props = defineProps({
 
 const emit = defineEmits(["update:modelValue", "validated"]);
 
-const violatedRule = ref<number>();
-const error = ref<string>("");
-
-const inputChanged = (e: any) => {
-  const val = e.target.value;
-  emit("update:modelValue", val);
-  if (!props.validateOnBlur) {
-    validate(e);
-  } else {
-    // If validating on blur, still check if fixed on change
-    if (violatedRule.value !== undefined) errorFixed(e, violatedRule.value);
-  }
-};
-
-const validate = (e: any) => {
-  const val = e.target.value;
-  for (let rule = 0; rule < props.rules.length; rule++) {
-    const valid = props.rules[rule](val);
-    if (valid !== true) {
-      violatedRule.value = rule;
-      error.value = valid;
-      break; // Break loop after first error is found
-    } else {
-      error.value = "";
-    }
-  }
-  emit("validated", !error.value);
-};
-
-const errorFixed = (e: any, rule: number) => {
-  const val = e.target.value;
-  const valid = props.rules[rule](val);
-  if (valid === true) {
-    violatedRule.value = undefined;
-    error.value = "";
-  }
-  emit("validated", !error.value);
-};
+const { error, inputChanged, validate } = useValidation(
+  emit,
+  props.rules,
+  props.validateOnBlur
+);
 </script>

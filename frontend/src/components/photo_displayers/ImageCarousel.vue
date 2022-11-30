@@ -5,8 +5,12 @@
     :autoplay="8000"
     :wrap-around="true"
   >
-    <Slide v-for="slide in 10" :key="slide">
-      <div class="carousel--image-fallback">{{ slide }}</div>
+    <Slide v-for="img in store.aboutCarouselImages" :key="img.id">
+      <img
+        :src="img.url"
+        :alt="`Image ${img.id}`"
+        class="carousel--image-fallback"
+      />
     </Slide>
 
     <template #addons>
@@ -20,6 +24,9 @@
 //Carousel docs: https://ismail9k.github.io/vue3-carousel/
 import { Carousel, Navigation, Slide, Pagination } from "vue3-carousel";
 import "vue3-carousel/dist/carousel.css";
+import { usePhotoStore } from "@/stores/photo";
+
+const store = usePhotoStore();
 
 const settings = {
   itemsToShow: 1,

@@ -21,6 +21,8 @@ import {
   faChevronUp,
   faChevronDown,
   faTrash,
+  faCheck,
+  faAdd,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faBuilding,
@@ -41,6 +43,8 @@ library.add(
   faChevronUp,
   faChevronDown,
   faTrash,
+  faCheck,
+  faAdd,
   faAt,
   faBuilding,
   faStarOutlined,
