@@ -40,7 +40,22 @@
       <template #title
         ><font-awesome-icon icon="fa-solid fa-user" />Inquiries</template
       >
-      <template #body></template>
+      <template #body>
+        <ExpandableInquiryCard
+          v-for="msg in inquiryStore.shownInquiries"
+          :inquiry="msg"
+          :key="`inquiry-${msg.id}`"
+        />
+        <button
+          v-if="
+            inquiryStore.shownInquiries.length < inquiryStore.inquiries.length
+          "
+          class="btn btn--text-secondary"
+          @click="inquiryStore.loadMore()"
+        >
+          Load more....
+        </button>
+      </template>
     </AdminPageCard>
     <AdminPageCard
       id="admin-password--card-container"
@@ -61,9 +76,12 @@ import TheAdminFilmTable from "@/components/film_displayers/TheAdminFilmTable.vu
 import TheAdminPhotos from "@/components/TheAdminPhotos.vue";
 import { useFilmStore } from "@/stores/film";
 import { usePhotoStore } from "@/stores/photo";
+import { useInquiryStore } from "@/stores/inquiry";
+import ExpandableInquiryCard from "@/components/cards/ExpandableInquiryCard.vue";
 
 const filmStore = useFilmStore();
 const photoStore = usePhotoStore();
+const inquiryStore = useInquiryStore();
 
 const filmCardHeight = ref<number>(3);
 const photoCardHeight = ref<number>(2);
@@ -98,5 +116,6 @@ onUpdated(() => {
 onBeforeMount(() => {
   document.documentElement.setAttribute("data-theme", "admin");
   if (filmStore.films.length <= 0) filmStore.getFilms();
+  if (inquiryStore.inquiries.length <= 0) inquiryStore.getInquiries();
 });
 </script>

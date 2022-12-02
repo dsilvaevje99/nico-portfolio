@@ -27,9 +27,11 @@ export interface Photo {
 }
 
 export interface Inquiry {
+  id: number;
   name: string;
   email: string;
   company: string;
   body: string;
-  date: string;
+  date: Date;
+  opened: boolean;
 }

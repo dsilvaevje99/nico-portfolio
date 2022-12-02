@@ -23,6 +23,7 @@ import {
   faTrash,
   faCheck,
   faAdd,
+  faEye,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faBuilding,
@@ -45,6 +46,7 @@ library.add(
   faTrash,
   faCheck,
   faAdd,
+  faEye,
   faAt,
   faBuilding,
   faStarOutlined,
