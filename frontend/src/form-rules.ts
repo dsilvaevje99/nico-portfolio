@@ -27,3 +27,11 @@ export const passwordRules = [
   (v: string) => v.length > 0 || "Password cannot be empty",
   (v: string) => v.length <= 30 || "Password cannot exceed 30 characters",
 ];
+
+const urlRegex =
+  /[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/;
+export const urlRules = [
+  (v: string) => v.length > 0 || "URL cannot be empty",
+  (v: string) => v.length <= 2000 || "URL cannot exceed 2000 characters",
+  (v: string) => urlRegex.test(v) || "Invalid URL",
+];

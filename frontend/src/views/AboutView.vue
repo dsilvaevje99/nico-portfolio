@@ -3,11 +3,7 @@
     <h1 class="title">About</h1>
     <div id="about--profile-pic">
       <div class="img-container--square">
-        <img
-          class="img--square"
-          src="https://picsum.photos/id/0/367/267"
-          alt=""
-        />
+        <img class="img--square" :src="store.adminURLs.profilePic" alt="" />
       </div>
     </div>
     <section id="about--intro-section">
@@ -40,18 +36,10 @@
         Qiufaf, asufbpoas afskj nkasnf mf. ams, jan lk amm.dffma.kw fmf.
       </p>
       <div class="img-container--square" id="process--img1">
-        <img
-          class="img--square"
-          src="https://picsum.photos/id/0/367/267"
-          alt=""
-        />
+        <img class="img--square" :src="store.adminURLs.processOne" alt="" />
       </div>
       <div class="img-container--square" id="process--img2">
-        <img
-          class="img--square"
-          src="https://picsum.photos/id/0/367/267"
-          alt=""
-        />
+        <img class="img--square" :src="store.adminURLs.processTwo" alt="" />
       </div>
       <p id="process--p2">
         Yup, that’s me. You’re probably wondering how I got into this
@@ -67,11 +55,7 @@
         asufbpoas afskj nkasnf mf. ams, jan lk amm.dffma.kw fmf.
       </p>
       <div class="img-container--square" id="process--img3">
-        <img
-          class="img--square"
-          src="https://picsum.photos/id/0/367/267"
-          alt=""
-        />
+        <img class="img--square" :src="store.adminURLs.processThree" alt="" />
       </div>
     </section>
     <h2 class="title" id="about--title-gallery">Gallery</h2>
@@ -89,6 +73,9 @@
 import { onBeforeMount } from "vue";
 import ImageCarousel from "@/components/photo_displayers/ImageCarousel.vue";
 import TheContactForm from "@/components/forms/TheContactForm.vue";
+import { usePhotoStore } from "@/stores/photo";
+
+const store = usePhotoStore();
 
 onBeforeMount(() =>
   document.documentElement.setAttribute("data-theme", "light")

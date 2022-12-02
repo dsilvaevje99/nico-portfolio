@@ -14,8 +14,21 @@ import {
   faKey,
   faUser,
   faArrowRight,
+  faClapperboard,
+  faImage,
+  faStar,
+  faPen,
+  faChevronUp,
+  faChevronDown,
+  faTrash,
+  faCheck,
+  faAdd,
+  faEye,
 } from "@fortawesome/free-solid-svg-icons";
-import { faBuilding } from "@fortawesome/free-regular-svg-icons";
+import {
+  faBuilding,
+  faStar as faStarOutlined,
+} from "@fortawesome/free-regular-svg-icons";
 import { faInstagram, faImdb } from "@fortawesome/free-brands-svg-icons";
 
 library.add(
@@ -24,8 +37,19 @@ library.add(
   faArrowDown,
   faUser,
   faArrowRight,
+  faClapperboard,
+  faImage,
+  faStar,
+  faPen,
+  faChevronUp,
+  faChevronDown,
+  faTrash,
+  faCheck,
+  faAdd,
+  faEye,
   faAt,
   faBuilding,
+  faStarOutlined,
   faKey,
   faInstagram,
   faImdb

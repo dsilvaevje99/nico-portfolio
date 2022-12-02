@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import FilmsView from "@/views/FilmsView.vue";
 import AboutView from "@/views/AboutView.vue";
 import LoginView from "@/views/LoginView.vue";
+import AdminView from "@/views/AdminView.vue";
 import PageNotFound from "@/views/PageNotFound.vue";
 
 const router = createRouter({
@@ -33,6 +34,11 @@ const router = createRouter({
       path: "/login",
       name: "login",
       component: LoginView,
+    },
+    {
+      path: "/admin",
+      name: "admin",
+      component: AdminView,
     },
     {
       path: "/:catchAll(.*)",

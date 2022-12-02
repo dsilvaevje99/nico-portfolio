@@ -146,6 +146,7 @@
   /* Photography page grid layout */
   .photography--grid {
     grid-template-columns: 25% 25% 25% 25%;
+    grid-auto-rows: 15rem;
     padding: 0 var(--page-padding);
     width: calc(100% - 4px * 3 - var(--page-padding) * 2);
   }
