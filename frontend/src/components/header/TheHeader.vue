@@ -12,6 +12,14 @@
         >About</RouterLink
       >
       <RouterLink
+        v-if="store.loggedIn"
+        to="/admin"
+        class="title nav-link nav-link--lighter"
+        tabindex="5"
+        >Admin</RouterLink
+      >
+      <RouterLink
+        v-else
         to="/login"
         class="title nav-link nav-link--lighter"
         tabindex="5"
@@ -25,4 +33,7 @@
 <script lang="ts" setup>
 import { RouterLink } from "vue-router";
 import TheMobileMenu from "@/components/header/TheMobileMenu.vue";
+import { useAuthStore } from "@/stores/auth";
+
+const store = useAuthStore();
 </script>
