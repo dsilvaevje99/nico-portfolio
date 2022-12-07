@@ -4,7 +4,7 @@
       <div id="admin-actions--container" v-if="hasMadeChanges">
         <button class="btn btn--filled-green">Publish Changes</button>
         <button class="btn btn--text-secondary" @click="undoAllChanges">
-          Undo Changes
+          Discard Changes
         </button>
       </div>
     </transition>
@@ -16,8 +16,8 @@
         ><font-awesome-icon icon="fa-solid fa-clapperboard" />Films</template
       >
       <template #body>
-        <TheAdminFilmTable />
-        <button class="btn btn--filled-primary">
+        <TheAdminFilmTable @edit="editFilm" />
+        <button class="btn btn--filled-primary" @click="addFilm">
           <font-awesome-icon icon="fa-solid fa-add" /> Add Film
         </button>
       </template>
@@ -66,6 +66,12 @@
       >
       <template #body></template>
     </AdminPageCard>
+
+    <AdminFilmModal
+      :open="filmModal"
+      :editing="editingFilm"
+      @close="filmModal = false"
+    />
   </div>
 </template>
 
@@ -78,15 +84,20 @@ import { useFilmStore } from "@/stores/film";
 import { usePhotoStore } from "@/stores/photo";
 import { useInquiryStore } from "@/stores/inquiry";
 import ExpandableInquiryCard from "@/components/cards/ExpandableInquiryCard.vue";
+import AdminFilmModal from "@/components/AdminFilmModal.vue";
+import type { Film } from "@/../../common-types";
 
 const filmStore = useFilmStore();
 const photoStore = usePhotoStore();
 const inquiryStore = useInquiryStore();
 
+const filmModal = ref<boolean>(false);
+const editingFilm = ref<Film>();
+
 const filmCardHeight = ref<number>(3);
 const photoCardHeight = ref<number>(2);
 const inquiryCardHeight = ref<number>(1);
-const hasMadeChanges = computed<Boolean>(
+const hasMadeChanges = computed<boolean>(
   () => filmStore.hasMadeChanges || photoStore.hasMadeChanges
 );
 const shortestCard = computed<number>(() =>
@@ -97,6 +108,16 @@ const gridTemplateRows = computed<string>(() =>
     ? `auto ${shortestCard.value}px auto`
     : `${shortestCard.value}px auto`
 );
+
+const editFilm = (film: Film) => {
+  editingFilm.value = film;
+  filmModal.value = true;
+};
+
+const addFilm = () => {
+  editingFilm.value = undefined;
+  filmModal.value = true;
+};
 
 const undoAllChanges = () => {
   filmStore.undoChanges();

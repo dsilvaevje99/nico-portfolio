@@ -165,16 +165,16 @@
     grid-template-columns: 1fr 1fr;
     column-gap: 1rem;
   }
-  #contact--fullName-input,
-  #contact--email-input,
-  #contact--company-input {
+  #contact-form #fullName--input,
+  #contact-form #email--input,
+  #contact-form #company--input {
     grid-column: 1;
   }
-  #contact--inquiry-input,
+  #contact-form #inquiry--input,
   #contact--submit-btn {
     grid-column: 2;
   }
-  #contact--inquiry-input {
+  #contact-form #inquiry--input {
     grid-row: 1/5;
   }
 

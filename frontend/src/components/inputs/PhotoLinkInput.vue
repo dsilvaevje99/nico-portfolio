@@ -7,6 +7,7 @@
       v-if="props.label"
       :for="props.name"
       class="admin-photos--input-label"
+      style="padding-bottom: 0"
       >{{ props.label }}</label
     >
     <div class="flex--row">
@@ -16,7 +17,7 @@
         :name="props.name"
         type="url"
         required
-        placeholder="https://image-url.png"
+        :placeholder="props.placeholder"
         :class="{
           'admin-photos--input': true,
           'input--invalid-state': error,
@@ -55,13 +56,25 @@ const props = defineProps({
     required: false,
     default: "",
   },
+  placeholder: {
+    type: String,
+    required: false,
+    default: "https://image-url.png",
+  },
+  type: {
+    type: String,
+    required: false,
+    default: "link",
+  },
 });
 
 const emit = defineEmits(["update:modelValue", "validated", "submit"]);
 
 const { error, inputChanged, validate } = useValidation(
   emit,
-  urlRules,
+  props.type === "hash"
+    ? [(x: string) => x.length > 0 || "Hash cannot be empty"]
+    : urlRules,
   true,
   props.modelValue
 );

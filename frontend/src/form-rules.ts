@@ -35,3 +35,15 @@ export const urlRules = [
   (v: string) => v.length <= 2000 || "URL cannot exceed 2000 characters",
   (v: string) => urlRegex.test(v) || "Invalid URL",
 ];
+
+const monthRegex =
+  /^(January|February|March|April|May|June|July|August|September|October|November|December)/i;
+export const monthRules = [
+  (v: string) => v.length > 0 || "Month cannot be empty",
+  (v: string) => monthRegex.test(v) || "Invalid month",
+];
+
+export const yearRules = [
+  (v: number) => v > 2000 || "You weren't born yet, buckaroo",
+  (v: number) => v <= new Date().getFullYear() || "Time traveling, are we?",
+];

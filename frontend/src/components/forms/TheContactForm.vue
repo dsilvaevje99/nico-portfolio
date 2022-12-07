@@ -26,7 +26,6 @@
     />
     <TextInput
       v-model="company"
-      type="company"
       name="company"
       label="Company"
       formId="contact-form"
@@ -34,10 +33,22 @@
       :rules="companyRules"
       @validated="(v) => (fieldsValidity.company = v)"
     />
-    <TheInquiryTextarea
+    <CustomTextarea
+      id="inquiry--input"
       v-model="inquiry"
+      name="inquiry"
+      label="Inquiry"
+      hideLabel
+      formId="contact-form"
+      required
+      :maxLength="300"
+      :rules="inquiryRules"
       @validated="(v) => (fieldsValidity.inquiry = v)"
     />
+    <!-- <TheInquiryTextarea
+      v-model="inquiry"
+      @validated="(v) => (fieldsValidity.inquiry = v)"
+    /> -->
     <div id="contact--submit-btn">
       <button
         type="submit"
@@ -53,8 +64,13 @@
 <script lang="ts" setup>
 import { ref, computed } from "vue";
 import TextInput from "@/components/inputs/TextInput.vue";
-import TheInquiryTextarea from "@/components/inputs/TheInquiryTextarea.vue";
-import { nameRules, emailRules, companyRules } from "@/form-rules";
+import {
+  nameRules,
+  emailRules,
+  companyRules,
+  inquiryRules,
+} from "@/form-rules";
+import CustomTextarea from "../inputs/CustomTextarea.vue";
 
 const fullName = ref<string>("");
 const email = ref<string>("");

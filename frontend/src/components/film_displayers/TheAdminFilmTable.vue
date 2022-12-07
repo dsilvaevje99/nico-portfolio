@@ -9,7 +9,7 @@
     <tbody id="admin-films--table-body">
       <tr
         v-for="(film, index) in store.films"
-        :key="film.id"
+        :key="film._id"
         :id="`admin-films--row-${index}`"
       >
         <td class="width--max-content">
@@ -39,6 +39,7 @@
         <td class="width--max-content">
           <button
             class="btn btn--size-small btn--icon-only admin-films--edit-btn"
+            @click="$emit('edit', film)"
           >
             <font-awesome-icon icon="fa-solid fa-pen" />
           </button>
@@ -53,6 +54,8 @@ import { onUpdated } from "vue";
 import { handleFilmDragDrop } from "@/helpers/sortingHelpers";
 import { useFilmStore } from "@/stores/film";
 import FilmPlacementArrows from "@/components/buttons/FilmPlacementArrows.vue";
+
+defineEmits(["edit"]);
 
 const store = useFilmStore();
 

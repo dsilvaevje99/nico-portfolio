@@ -18,16 +18,17 @@ for (let i = 0; i < 15; i++) {
     url: `https://picsum.photos/${Math.floor(
       Math.random() * (300 - 50 + 1) + 50
     )}/${Math.floor(Math.random() * (300 - 50 + 1) + 50)}`,
+    alt: "",
   });
 }
 
 const MOCK_URLS = {
-  photoPageAlbum: "https://picsum.photos/id/0/367/267",
+  photoPageAlbum: "HC52cjS",
   profilePic: "https://picsum.photos/id/0/367/267",
   processOne: "https://picsum.photos/id/0/367/267",
   processTwo: "https://picsum.photos/id/0/367/267",
   processThree: "https://picsum.photos/id/0/367/267",
-  carouselAlbum: "https://picsum.photos/id/0/367/267",
+  carouselAlbum: "HC52cjS",
 };
 
 export const usePhotoStore = defineStore("photo", () => {

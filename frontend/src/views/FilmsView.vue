@@ -1,5 +1,10 @@
 <template>
-  <div id="films--container">
+  <div v-if="loading" id="films--container">
+    <div class="centered--container">
+      <LoadingSpinner />
+    </div>
+  </div>
+  <div v-else id="films--container">
     <h1 class="title nudge-right">Films</h1>
     <div id="featured-film--container">
       <router-link :to="`/film/${store.featuredFilm?.slug}`" tabindex="7">
@@ -13,23 +18,23 @@
           <table id="featured-film-details--table">
             <tr>
               <td>Project type</td>
-              <td>Artistic</td>
+              <td>{{ store.featuredFilm?.type }}</td>
             </tr>
             <tr>
               <td>Date</td>
-              <td>Aug. 12th 2022</td>
+              <td>{{ store.featuredFilm?.date }}</td>
             </tr>
             <tr>
               <td>Location</td>
-              <td>Nice, France</td>
+              <td>{{ store.featuredFilm?.location }}</td>
             </tr>
-            <tr>
+            <tr v-if="store.featuredFilm?.client">
               <td>Client</td>
-              <td>Someone</td>
+              <td>{{ store.featuredFilm?.client }}</td>
             </tr>
-            <tr>
+            <tr v-if="store.featuredFilm?.company">
               <td>Production Company</td>
-              <td>Whatever</td>
+              <td>{{ store.featuredFilm?.company }}</td>
             </tr>
           </table>
         </div>
@@ -47,7 +52,7 @@
       <router-link
         v-for="film in gridFilms"
         :to="`/film/${film.slug}`"
-        :key="film.id"
+        :key="film._id"
         class="film--tile-container"
       >
         <FilmGridTile :film="film" />
@@ -57,19 +62,24 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onBeforeMount } from "vue";
+import { computed, ref, onBeforeMount } from "vue";
 import FilmGridTile from "@/components/film_displayers/FilmGridTile.vue";
 import { useFilmStore } from "@/stores/film";
 import type { Film } from "@/../../common-types";
 
 const store = useFilmStore();
 
+const loading = ref<Boolean>(false);
 const gridFilms = computed<Film[]>(() =>
   store.films.filter((f) => !f.featured)
 );
 
-onBeforeMount(() => {
+onBeforeMount(async () => {
   document.documentElement.setAttribute("data-theme", "dark");
-  if (store.films.length <= 0) store.getFilms();
+  if (store.films.length <= 0) {
+    loading.value = true;
+    await store.getFilms();
+    loading.value = false;
+  }
 });
 </script>
