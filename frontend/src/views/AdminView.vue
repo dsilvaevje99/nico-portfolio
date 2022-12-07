@@ -76,7 +76,14 @@
 </template>
 
 <script lang="ts" setup>
-import { onBeforeMount, onUpdated, ref, computed } from "vue";
+import {
+  onBeforeMount,
+  onUpdated,
+  onMounted,
+  nextTick,
+  ref,
+  computed,
+} from "vue";
 import AdminPageCard from "@/components/cards/AdminPageCard.vue";
 import TheAdminFilmTable from "@/components/film_displayers/TheAdminFilmTable.vue";
 import TheAdminPhotos from "@/components/TheAdminPhotos.vue";
@@ -124,7 +131,7 @@ const undoAllChanges = () => {
   photoStore.undoChanges();
 };
 
-onUpdated(() => {
+const getCardHeights = () => {
   filmCardHeight.value =
     document.getElementById("admin-films--card-container")?.offsetHeight || 3;
   photoCardHeight.value =
@@ -132,7 +139,11 @@ onUpdated(() => {
   inquiryCardHeight.value =
     document.getElementById("admin-inquiries--card-container")?.offsetHeight ||
     1;
-});
+};
+
+onUpdated(() => getCardHeights());
+
+onMounted(() => nextTick(() => getCardHeights()));
 
 onBeforeMount(() => {
   document.documentElement.setAttribute("data-theme", "admin");
