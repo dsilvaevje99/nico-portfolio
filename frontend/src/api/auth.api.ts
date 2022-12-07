@@ -17,10 +17,7 @@ export const login = async (
   }
 };
 
-export const logout = async (
-  username: string,
-  password: string
-): Promise<boolean> => {
+export const logout = async (username: string): Promise<boolean> => {
   try {
     const res = await Http.Client.post(`${Http.BaseURL}/logout`);
 
