@@ -3,6 +3,7 @@ import * as express from "express";
 import { Logger } from "./logger/logger";
 import Routes from "./routes/routes";
 const path = require("path");
+import cors = require("cors");
 
 class App {
   public express: express.Application;
@@ -17,6 +18,22 @@ class App {
 
   // Configure Express middleware.
   private middleware(): void {
+    this.express.use(function (req, res, next) {
+      res.header(
+        "Access-Control-Allow-Origin",
+        "https://nicolas-romero.onrender.com"
+      );
+      res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept"
+      );
+      next();
+    });
+    this.express.use(
+      cors({
+        origin: ["https://nicolas-romero.onrender.com"],
+      })
+    );
     this.express.use(bodyParser.json());
     this.express.use(bodyParser.urlencoded({ extended: false }));
     this.express.use(express.static(path.join(__dirname, "../frontend/dist/")));
