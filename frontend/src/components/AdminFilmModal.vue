@@ -381,7 +381,7 @@ const submitValues = (e: any) => {
       ...film.value,
       _id: tempId,
     });
-    if (!store.newFilms.includes(tempId)) store.editedFilms.push(tempId);
+    if (!store.newFilms.includes(tempId)) store.newFilms.push(tempId);
   }
   emit("close");
 };
