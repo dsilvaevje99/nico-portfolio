@@ -21,6 +21,7 @@
       :rules="passwordRules"
       @validated="(v) => (fieldsValidity.password = v)"
     />
+    <p v-if="showError" class="input--error-msg">Invalid login credentials</p>
     <div>
       <button
         type="submit"
@@ -45,6 +46,7 @@ import { useAuthStore } from "@/stores/auth";
 const router = useRouter();
 const store = useAuthStore();
 
+const showError = ref<boolean>(false);
 const username = ref<string>("");
 const password = ref<string>("");
 const fieldsValidity = ref({
@@ -58,8 +60,11 @@ const valid = computed<Boolean>(
 const submitForm = async (e: any) => {
   e.preventDefault();
   if (await login(username.value, password.value)) {
-    store.login();
+    showError.value = false;
+    store.login(username.value);
     router.replace("/admin");
+  } else {
+    showError.value = true;
   }
 };
 </script>

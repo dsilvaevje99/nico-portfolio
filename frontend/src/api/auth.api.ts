@@ -5,10 +5,13 @@ export const login = async (
   password: string
 ): Promise<boolean> => {
   try {
-    const res = await Http.Client.post(`${Http.BaseURL}/login`);
+    const res = await Http.Client.post(`${Http.BaseURL}/login`, {
+      username,
+      password,
+    });
 
     if (res.status === 200) {
-      return res.data;
+      return true;
     } else {
       throw new Error();
     }

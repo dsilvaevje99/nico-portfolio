@@ -13,13 +13,13 @@ export interface Film {
   company: string;
   credits: Credit[];
   framesUrl: string;
-  frames: Photo[];
+  frames?: Photo[];
   featured: Boolean;
 }
 
 export interface Credit {
   role: string;
-  name: string;
+  name: string[];
 }
 
 export interface Photo {
