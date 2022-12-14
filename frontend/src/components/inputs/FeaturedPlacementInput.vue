@@ -71,9 +71,7 @@ const store = useFilmStore();
 const featured = ref<boolean>(false);
 const placement = ref<number>(1);
 const valid = ref<boolean>(true);
-const maxPlacement = computed(() =>
-  store.films.length <= 2 ? 1 : store.films.length
-);
+const maxPlacement = computed(() => store.films.length);
 const disableInputs = computed<boolean>(() => store.films.length === 1);
 
 watch(

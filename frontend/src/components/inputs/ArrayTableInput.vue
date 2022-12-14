@@ -16,7 +16,14 @@
         </div>
         <div v-else style="display: contents">
           <tr v-for="(item, index) in props.items" :key="JSON.stringify(item)">
-            <td v-for="(val, key) in item" :key="key">{{ val }}</td>
+            <td v-for="(val, key) in item" :key="key">
+              <div v-if="Array.isArray(val)" style="display: contents">
+                <span v-for="(i, index) in val" :key="index"
+                  >{{ i }}<br v-if="index < (val as string[]).length - 1"
+                /></span>
+              </div>
+              <span v-else>{{ val }}</span>
+            </td>
             <td align="center">
               <button
                 class="btn btn--size-small btn--icon-only"

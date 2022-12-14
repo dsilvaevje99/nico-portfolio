@@ -299,7 +299,9 @@ h2 {
 table td:nth-child(odd) {
   color: var(--text-secondary);
   padding-right: 2rem;
-  line-height: 2;
+}
+table td {
+  padding-bottom: 1rem;
 }
 #credits > table {
   margin: 0 var(--page-padding);

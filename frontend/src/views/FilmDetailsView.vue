@@ -44,7 +44,7 @@
         Credits
       </a>
     </div>
-    <div v-if="film.frames.length > 0" id="film-details--frames">
+    <div v-if="film.frames && film.frames.length > 0" id="film-details--frames">
       <h2 class="title">Frames</h2>
       <ImageGrid :images="film.frames" />
     </div>
@@ -53,7 +53,14 @@
       <table>
         <tr v-for="cred in film.credits" :key="cred.role">
           <td>{{ cred.role }}</td>
-          <td>{{ cred.name }}</td>
+          <td>
+            <span
+              v-for="(i, index) in cred.name"
+              :key="index"
+              :style="{ 'display': 'block', 'padding-bottom': index < (cred.name as string[]).length - 1 ? '0.5rem' : 0 }"
+              >{{ i }}</span
+            >
+          </td>
         </tr>
       </table>
     </div>

@@ -1,7 +1,9 @@
 <template>
   <PopupModal :open="props.open" @close="$emit('close')">
     <div id="film-modal--container" :key="modalKey">
-      <h3 class="title">{{ isEditing ? "Edit Film" : "Add New Film" }}</h3>
+      <h3 class="title">
+        {{ isEditing ? "Edit Film" : "Add New Film" }}
+      </h3>
       <form v-if="film" id="film-modal--form">
         <TextInput
           v-model.trim="film.title"
@@ -141,7 +143,7 @@
         >
           <td>
             <TextInput
-              v-model.trim="newCredit.role"
+              v-model.trim="newCreditRole"
               name="credit-role"
               label="Role"
               required
@@ -153,7 +155,7 @@
           </td>
           <td>
             <TextInput
-              v-model.trim="newCredit.name"
+              v-model="newCreditName"
               name="credit-name"
               label="Name"
               required
@@ -214,7 +216,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, watch } from "vue";
+import { ref, computed, watch, customRef } from "vue";
 import PopupModal from "@/components/PopupModal.vue";
 import type { Credit, Film } from "@/../../common-types";
 import TextInput from "@/components/inputs/TextInput.vue";
@@ -276,10 +278,8 @@ const film = ref<Film>({
   framesUrl: "",
   featured: false,
 });
-const newCredit = ref<Credit>({
-  role: "",
-  name: "",
-});
+const newCreditRole = ref<string>("");
+const newCreditName = ref<string>("");
 const creditValidity = ref({
   role: false,
   name: false,
@@ -331,11 +331,13 @@ const checkCreditValidity = () => {
 
 const addCredit = (e: any) => {
   e.preventDefault();
-  film.value.credits.push(newCredit.value);
-  newCredit.value = {
-    role: "",
-    name: "",
+  const newCredit = {
+    role: newCreditRole.value,
+    name: newCreditName.value.split(",").map((name) => name.trim()),
   };
+  film.value.credits.push(newCredit);
+  newCreditRole.value = "";
+  newCreditName.value = "";
   creditValidity.value = {
     role: false,
     name: false,
@@ -367,15 +369,19 @@ const submitValues = (e: any) => {
       deleteFilm(found);
       store.films.splice(film.value.placement, 0, film.value);
     } else {
-      if (found) {
+      if (found >= 0) {
         store.films[found] = film.value;
       }
     }
+    if (!store.editedFilms.includes(film.value._id))
+      store.editedFilms.push(film.value._id);
   } else {
+    const tempId = `temp-${new Date().getTime()}`;
     store.films.splice(film.value.placement, 0, {
       ...film.value,
-      _id: `temp-${new Date()}`,
+      _id: tempId,
     });
+    if (!store.newFilms.includes(tempId)) store.editedFilms.push(tempId);
   }
   emit("close");
 };
