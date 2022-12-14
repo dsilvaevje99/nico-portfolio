@@ -1,5 +1,5 @@
 export interface Film {
-  id: number;
+  _id: string;
   placement: number;
   src: string;
   thumbnail: string;
@@ -9,21 +9,23 @@ export interface Film {
   type: string;
   date: string;
   location: string;
-  client?: string;
-  company?: string;
+  client: string;
+  company: string;
   credits: Credit[];
-  frames: Photo[];
+  framesUrl: string;
+  frames?: Photo[];
   featured: Boolean;
 }
 
 export interface Credit {
   role: string;
-  name: string;
+  name: string[];
 }
 
 export interface Photo {
   id: number;
   url: string;
+  alt: string;
 }
 
 export interface Inquiry {

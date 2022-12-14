@@ -13,7 +13,9 @@
       >
         <font-awesome-icon v-if="open" icon="fa-solid fa-xmark" />
       </button>
-      <slot></slot>
+      <div class="modal-content--container">
+        <slot></slot>
+      </div>
     </div>
   </transition>
 </template>

@@ -1,76 +1,98 @@
 <template>
-  <div id="admin--container" :style="`grid-template-rows: ${gridTemplateRows}`">
+  <div>
     <transition name="reveal" mode="in-out">
       <div id="admin-actions--container" v-if="hasMadeChanges">
-        <button class="btn btn--filled-green">Publish Changes</button>
+        <button class="btn btn--filled-green" @click="saveAllChanges">
+          Publish Changes
+          <LocalLoadingSpinner v-if="filmStore.showSavingLoader" />
+        </button>
         <button class="btn btn--text-secondary" @click="undoAllChanges">
-          Undo Changes
+          Discard Changes
         </button>
       </div>
     </transition>
-    <AdminPageCard
-      id="admin-films--card-container"
-      :class="{ 'admin-card--span-one': shortestCard === filmCardHeight }"
+    <div
+      id="admin--container"
+      :style="`grid-template-rows: ${gridTemplateRows}`"
     >
-      <template #title
-        ><font-awesome-icon icon="fa-solid fa-clapperboard" />Films</template
+      <AdminPageCard
+        id="admin-films--card-container"
+        :class="{ 'admin-card--span-one': shortestCard === filmCardHeight }"
       >
-      <template #body>
-        <TheAdminFilmTable />
-        <button class="btn btn--filled-primary">
-          <font-awesome-icon icon="fa-solid fa-add" /> Add Film
-        </button>
-      </template>
-    </AdminPageCard>
-    <AdminPageCard
-      id="admin-photos--card-container"
-      :class="{ 'admin-card--span-one': shortestCard === photoCardHeight }"
-    >
-      <template #title
-        ><font-awesome-icon icon="fa-solid fa-image" />Photos</template
-      >
-      <template #body>
-        <TheAdminPhotos />
-      </template>
-    </AdminPageCard>
-    <AdminPageCard
-      id="admin-inquiries--card-container"
-      :class="{ 'admin-card--span-one': shortestCard === inquiryCardHeight }"
-    >
-      <template #title
-        ><font-awesome-icon icon="fa-solid fa-user" />Inquiries</template
-      >
-      <template #body>
-        <ExpandableInquiryCard
-          v-for="msg in inquiryStore.shownInquiries"
-          :inquiry="msg"
-          :key="`inquiry-${msg.id}`"
-        />
-        <button
-          v-if="
-            inquiryStore.shownInquiries.length < inquiryStore.inquiries.length
-          "
-          class="btn btn--text-secondary"
-          @click="inquiryStore.loadMore()"
+        <template #title
+          ><font-awesome-icon icon="fa-solid fa-clapperboard" />Films</template
         >
-          Load more....
-        </button>
-      </template>
-    </AdminPageCard>
-    <AdminPageCard
-      id="admin-password--card-container"
-      class="admin-card--span-one"
-    >
-      <template #title
-        ><font-awesome-icon icon="fa-solid fa-key" />Change Password</template
+        <template #body>
+          <TheAdminFilmTable @edit="editFilm" />
+          <button class="btn btn--filled-primary" @click="addFilm">
+            <font-awesome-icon icon="fa-solid fa-add" /> Add Film
+          </button>
+        </template>
+      </AdminPageCard>
+      <AdminPageCard
+        id="admin-photos--card-container"
+        :class="{ 'admin-card--span-one': shortestCard === photoCardHeight }"
       >
-      <template #body></template>
-    </AdminPageCard>
+        <template #title
+          ><font-awesome-icon icon="fa-solid fa-image" />Photos</template
+        >
+        <template #body>
+          <TheAdminPhotos />
+        </template>
+      </AdminPageCard>
+      <AdminPageCard
+        id="admin-inquiries--card-container"
+        :class="{ 'admin-card--span-one': shortestCard === inquiryCardHeight }"
+      >
+        <template #title
+          ><font-awesome-icon icon="fa-solid fa-user" />Inquiries</template
+        >
+        <template #body>
+          <ExpandableInquiryCard
+            v-for="msg in inquiryStore.shownInquiries"
+            :inquiry="msg"
+            :key="`inquiry-${msg.id}`"
+          />
+          <button
+            v-if="
+              inquiryStore.shownInquiries.length < inquiryStore.inquiries.length
+            "
+            class="btn btn--text-secondary"
+            @click="inquiryStore.loadMore()"
+          >
+            Load more....
+          </button>
+        </template>
+      </AdminPageCard>
+      <AdminPageCard
+        id="admin-password--card-container"
+        class="admin-card--span-one"
+      >
+        <template #title
+          ><font-awesome-icon icon="fa-solid fa-key" />Change Password</template
+        >
+        <template #body></template>
+      </AdminPageCard>
+
+      <AdminFilmModal
+        :open="filmModal"
+        :editing="editingFilm"
+        @close="filmModal = false"
+      />
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { onBeforeMount, onUpdated, ref, computed } from "vue";
+import {
+  onBeforeMount,
+  onUpdated,
+  onMounted,
+  nextTick,
+  ref,
+  computed,
+  watch,
+} from "vue";
 import AdminPageCard from "@/components/cards/AdminPageCard.vue";
 import TheAdminFilmTable from "@/components/film_displayers/TheAdminFilmTable.vue";
 import TheAdminPhotos from "@/components/TheAdminPhotos.vue";
@@ -78,32 +100,48 @@ import { useFilmStore } from "@/stores/film";
 import { usePhotoStore } from "@/stores/photo";
 import { useInquiryStore } from "@/stores/inquiry";
 import ExpandableInquiryCard from "@/components/cards/ExpandableInquiryCard.vue";
+import AdminFilmModal from "@/components/AdminFilmModal.vue";
+import LocalLoadingSpinner from "@/components/LocalLoadingSpinner.vue";
+import type { Film } from "@/../../common-types";
 
 const filmStore = useFilmStore();
 const photoStore = usePhotoStore();
 const inquiryStore = useInquiryStore();
 
+const filmModal = ref<boolean>(false);
+const editingFilm = ref<Film>();
+
 const filmCardHeight = ref<number>(3);
 const photoCardHeight = ref<number>(2);
 const inquiryCardHeight = ref<number>(1);
-const hasMadeChanges = computed<Boolean>(
+const hasMadeChanges = computed<boolean>(
   () => filmStore.hasMadeChanges || photoStore.hasMadeChanges
 );
 const shortestCard = computed<number>(() =>
   Math.min(filmCardHeight.value, photoCardHeight.value, inquiryCardHeight.value)
 );
-const gridTemplateRows = computed<string>(() =>
-  hasMadeChanges.value
-    ? `auto ${shortestCard.value}px auto`
-    : `${shortestCard.value}px auto`
-);
+const gridTemplateRows = computed<string>(() => `${shortestCard.value}px auto`);
+
+const editFilm = (film: Film) => {
+  editingFilm.value = film;
+  filmModal.value = true;
+};
+
+const addFilm = () => {
+  editingFilm.value = undefined;
+  filmModal.value = true;
+};
+
+const saveAllChanges = () => {
+  filmStore.saveChanges();
+};
 
 const undoAllChanges = () => {
   filmStore.undoChanges();
   photoStore.undoChanges();
 };
 
-onUpdated(() => {
+const getCardHeights = () => {
   filmCardHeight.value =
     document.getElementById("admin-films--card-container")?.offsetHeight || 3;
   photoCardHeight.value =
@@ -111,11 +149,18 @@ onUpdated(() => {
   inquiryCardHeight.value =
     document.getElementById("admin-inquiries--card-container")?.offsetHeight ||
     1;
-});
+};
+
+onUpdated(() => nextTick(() => getCardHeights()));
+
+onMounted(() => nextTick(() => getCardHeights()));
+
+watch(filmStore.films, () => nextTick(() => getCardHeights()));
 
 onBeforeMount(() => {
   document.documentElement.setAttribute("data-theme", "admin");
   if (filmStore.films.length <= 0) filmStore.getFilms();
   if (inquiryStore.inquiries.length <= 0) inquiryStore.getInquiries();
+  getCardHeights();
 });
 </script>

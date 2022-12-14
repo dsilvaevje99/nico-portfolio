@@ -33,6 +33,15 @@
           >About</RouterLink
         >
         <RouterLink
+          v-if="store.loggedIn"
+          to="/admin"
+          class="title nav-link nav-link--lighter nav-link--separate"
+          @click="toggleMenu"
+          tabindex="6"
+          >Admin</RouterLink
+        >
+        <RouterLink
+          v-else
           to="/login"
           class="title nav-link nav-link--lighter nav-link--separate"
           @click="toggleMenu"
@@ -49,6 +58,9 @@
 import { RouterLink } from "vue-router";
 import { ref } from "vue";
 import SocialIcons from "@/components/SocialIcons.vue";
+import { useAuthStore } from "@/stores/auth";
+
+const store = useAuthStore();
 
 const open = ref(false);
 

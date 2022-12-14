@@ -1,21 +1,31 @@
 <template>
   <div>
-    <div class="input--container" :id="`contact--${props.name}-input`">
-      <label :for="props.name" class="sr-only">{{ props.label }}</label>
+    <label :for="props.name" :class="{ 'sr-only': props.hideLabel }">{{
+      props.label
+    }}</label>
+    <div class="input--container" :id="`${props.name}--input`">
       <input
         :value="modelValue"
         :name="props.name"
         :type="props.type"
         :form="formId"
         :required="props.required"
-        :placeholder="props.label"
+        :placeholder="props.placeholder ? props.placeholder : props.label"
         :class="{
           'input--has-icon': props.icon,
           'input--is-required': props.displayAsterix,
           'input--invalid-state': error,
+          'input--dense': props.dense,
+          'input--underlined': props.underlined,
         }"
+        :disabled="props.disabled"
         @input="inputChanged"
-        @blur="validate"
+        @blur="
+          (e) => {
+            validate(e);
+            $emit('blur');
+          }
+        "
       />
       <font-awesome-icon v-if="props.icon" :icon="props.icon" />
       <span
@@ -33,7 +43,7 @@ import useValidation from "@/composables/useValidation";
 
 const props = defineProps({
   modelValue: {
-    type: String,
+    type: [String, Number],
     required: true,
   },
   name: {
@@ -44,9 +54,19 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  hideLabel: {
+    type: Boolean,
+    required: false,
+    default: true,
+  },
+  placeholder: {
+    type: String,
+    required: false,
+  },
   formId: {
     type: String,
-    required: true,
+    required: false,
+    default: "",
   },
   type: {
     type: String,
@@ -77,9 +97,24 @@ const props = defineProps({
     required: false,
     default: false,
   },
+  dense: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
+  underlined: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
+  disabled: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
 });
 
-const emit = defineEmits(["update:modelValue", "validated"]);
+const emit = defineEmits(["update:modelValue", "validated", "blur"]);
 
 const { error, inputChanged, validate } = useValidation(
   emit,

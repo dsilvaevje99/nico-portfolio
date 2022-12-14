@@ -63,6 +63,14 @@ p {
   color: var(--text-primary);
 }
 
+label,
+.label {
+  display: inline-block;
+  padding-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
 .text-align--right {
   text-align: right;
 }
@@ -95,6 +103,13 @@ p {
 .flex--justify-end {
   display: flex;
   justify-content: flex-end;
+}
+
+.centered--container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%);
 }
 
 .red {
@@ -188,24 +203,42 @@ header {
   border: none;
   border-radius: 0;
   resize: none;
+  background: white;
+}
+
+.input--container input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.input--container .input--dense {
+  padding: 0.3em;
+}
+
+.input--container .input--underlined {
+  background: none;
+  border-bottom: 1px solid black;
+  padding-left: 0.1em;
+  padding-right: 0.1em;
+  outline: none;
 }
 
 .input--container textarea {
   padding-bottom: 0;
 }
 
-#inquiry--bottom-area {
+.textarea--bottom-area {
   display: flex;
+  justify-content: space-between;
   background-color: var(--bg-color);
   padding: 0.5em 1em;
   color: var(--text-secondary);
-  font-size: 0.8em;
 }
 
-#inquiry--counter {
-  width: 100%;
+.textarea--counter {
   padding: 0.3em 0;
   text-align: right;
+  font-size: 0.8em;
 }
 
 .input--container .input--has-icon {
@@ -215,6 +248,12 @@ header {
 .input--container .input--invalid-state {
   border: 1px solid var(--alert-color);
   outline-color: var(--alert-color);
+}
+
+.input--container .input--underlined.input--invalid-state {
+  border-top: 0;
+  border-right: 0;
+  border-left: 0;
 }
 
 .input--container .input--is-required {
@@ -290,6 +329,8 @@ footer > p {
   transition: background-color 500ms;
   -o-transition: background-color 500ms;
   cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 
 .btn:disabled {
@@ -325,6 +366,12 @@ footer > p {
   padding: 1em 1.5em;
 }
 
+.btn--filled-red {
+  background-color: var(--alert-color);
+  color: white;
+  padding: 1em 1.5em;
+}
+
 .btn--text-primary {
   background-color: var(--bg-color);
   color: var(--text-primary);
@@ -349,6 +396,7 @@ footer > p {
 }
 .btn--card-expand > svg {
   font-size: 0.75em;
+  padding-left: 0.5rem;
 }
 
 .btn--icon-only {
@@ -379,6 +427,20 @@ footer > p {
   height: 100%;
   aspect-ratio: 1/1;
   font-size: 1rem;
+}
+
+#btn--logout {
+  transform: scaleX(-1);
+  position: fixed;
+  right: 2rem;
+  bottom: 2rem;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background-color: var(--text-secondary);
+  color: var(--bg-color);
+  cursor: pointer;
+  border: none;
 }
 
 #about--container {
@@ -485,8 +547,13 @@ footer > p {
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
   max-width: 75vw;
-  max-height: 75vh;
+  max-height: 85vh;
   z-index: 5;
+}
+
+.modal-content--container {
+  max-height: 85vh;
+  overflow-y: auto;
 }
 
 .modal--container > img {
@@ -507,14 +574,12 @@ footer > p {
 #admin--container {
   margin: 0 var(--page-padding);
   display: grid;
-  grid-auto-rows: auto;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 1rem;
 }
 #admin-actions--container {
-  grid-row: 1;
-  grid-column: 1/4;
   width: 100%;
+  margin: 0 var(--page-padding) 1rem;
   display: flex;
   gap: 1rem;
 }
@@ -652,5 +717,37 @@ footer > p {
 }
 .inquiry-card--header > p:first-child {
   font-weight: 500;
+}
+
+#film-modal--container {
+  background-color: var(--bg-color);
+  padding: 2rem;
+}
+#film-modal--container > h3 {
+  font-size: 1.5em;
+  padding-bottom: 2rem;
+}
+#film-modal--form {
+  display: grid;
+  grid-template-columns: calc(50% - 0.5rem) calc(50% - 0.5rem);
+  grid-auto-rows: auto;
+  gap: 1rem;
+}
+#film-modal--form > #film-modal--title,
+#film-modal--form > #film-modal--src,
+#film-modal--form > #film-modal--description,
+#film-modal--form > #film-modal--thumbnail,
+#film-modal--form > #film-modal--submit,
+#film-modal--form > #film-modal--credits {
+  grid-column: 1/3;
+}
+#film-modal--form > #film-modal--description {
+  height: 13rem;
+}
+#film-modal--form #month--input > input,
+#film-modal--form #year--input > input,
+#film-modal--form #month-input--container,
+#film-modal--form #year-input--container {
+  width: 50%;
 }
 /* ----------------- */

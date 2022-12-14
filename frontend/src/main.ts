@@ -24,6 +24,7 @@ import {
   faCheck,
   faAdd,
   faEye,
+  faArrowRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faBuilding,
@@ -47,6 +48,7 @@ library.add(
   faCheck,
   faAdd,
   faEye,
+  faArrowRightFromBracket,
   faAt,
   faBuilding,
   faStarOutlined,

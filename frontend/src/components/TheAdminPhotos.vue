@@ -1,16 +1,19 @@
 <template>
   <div id="admin-photos--container" class="flex--column">
     <div>
-      <h6 class="title">Photography page Imgur album</h6>
+      <h6 class="title">Photography page (Imgur album hash)</h6>
       <AdminPhotoLink
         v-if="!store.editPhotoPageAlbum"
         :url="store.adminURLs.photoPageAlbum"
+        type="hash"
         @edit="store.editPhotoPageAlbum = true"
       />
       <PhotoLinkInput
         v-else
         v-model="photoPageAlbum"
         name="album"
+        placeholder="6UvjS4y"
+        type="hash"
         @submit="submitPhotoPageAlbum"
       />
     </div>
@@ -80,14 +83,16 @@
       <AdminPhotoLink
         v-if="!store.editCarouselAlbum"
         :url="store.adminURLs.carouselAlbum"
-        label="Carousel Album"
+        label="Image Carousel (Imgur Album Hash)"
+        type="hash"
         @edit="store.editCarouselAlbum = true"
       />
       <PhotoLinkInput
         v-else
         v-model="carouselAlbum"
         name="carouselAlbum"
-        label="Image Carousel Album"
+        label="Image Carousel (Imgur Album Hash)"
+        type="hash"
         @submit="submitCarouselAlbum"
       />
       <!-- -------- -->

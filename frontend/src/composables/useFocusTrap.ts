@@ -4,6 +4,7 @@ const focusableElementsSelector =
   'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
 
 const useFocusTrap = () => {
+  let firstInit: boolean = true;
   let focusableElements = [];
   let $firstFocusable: any;
   let $lastFocusable: any;
@@ -49,11 +50,13 @@ const useFocusTrap = () => {
     $firstFocusable = focusableElements[0];
     $lastFocusable = focusableElements[focusableElements.length - 1];
     document.addEventListener("keydown", keyHandler);
-    $firstFocusable.focus();
+    if (firstInit) $firstFocusable.focus();
+    firstInit = false;
   }
 
   function clearFocusTrap() {
     document.removeEventListener("keydown", keyHandler);
+    firstInit = true;
   }
 
   return {

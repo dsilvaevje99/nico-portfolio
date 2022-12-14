@@ -9,7 +9,7 @@
     <tbody id="admin-films--table-body">
       <tr
         v-for="(film, index) in store.films"
-        :key="film.id"
+        :key="film._id"
         :id="`admin-films--row-${index}`"
       >
         <td class="width--max-content">
@@ -39,6 +39,7 @@
         <td class="width--max-content">
           <button
             class="btn btn--size-small btn--icon-only admin-films--edit-btn"
+            @click="$emit('edit', film)"
           >
             <font-awesome-icon icon="fa-solid fa-pen" />
           </button>
@@ -54,13 +55,21 @@ import { handleFilmDragDrop } from "@/helpers/sortingHelpers";
 import { useFilmStore } from "@/stores/film";
 import FilmPlacementArrows from "@/components/buttons/FilmPlacementArrows.vue";
 
+defineEmits(["edit"]);
+
 const store = useFilmStore();
 
 const changePlacement = (direction: number, curr: number, index: number) => {
   const filmsCopy = [...store.films];
-  filmsCopy[index + direction].placement = curr;
-  filmsCopy[index].placement = curr + direction;
+  const clickedItem = filmsCopy[index + direction];
+  const switchingWith = filmsCopy[index];
+  clickedItem.placement = curr;
+  switchingWith.placement = curr + direction;
   store.films = filmsCopy.sort(({ placement: a }, { placement: b }) => a - b);
+  if (!store.editedFilms.includes(clickedItem._id))
+    store.editedFilms.push(clickedItem._id);
+  if (!store.editedFilms.includes(switchingWith._id))
+    store.editedFilms.push(switchingWith._id);
 };
 
 const switchFeatured = (place: number, index: number) => {
