@@ -12,6 +12,17 @@ const mongoString = process.env.ATLAS_URI;
 mongoose.connect(mongoString);
 const database = mongoose.connection;
 
+App.use(function (req, res, next) {
+  res.header(
+    "Access-Control-Allow-Origin",
+    "https://nicolas-romero.onrender.com"
+  );
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 App.use(
   cors({
     origin: ["https://nicolas-romero.onrender.com"],
