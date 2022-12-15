@@ -1,6 +1,7 @@
 import * as bodyParser from "body-parser";
 import * as express from "express";
 import { Logger } from "../logger/logger";
+import auth from "../middleware/auth";
 
 const Model = require("../models/users");
 
@@ -25,7 +26,7 @@ class AuthAPI {
   }
 
   private routes(): void {
-    this.express.post("/user", async (req, res, next) => {
+    this.express.post("/user", auth, async (req, res, next) => {
       this.logger.info("url:::::::" + req.url);
 
       try {
@@ -66,13 +67,13 @@ class AuthAPI {
       }
     });
 
-    this.express.post("/logout", (req, res, next) => {
+    this.express.post("/logout", auth, (req, res, next) => {
       this.logger.info("url:::::::" + req.url);
       this.loggedIn = false;
       res.json("Logging out");
     });
 
-    this.express.get("/login/status", (req, res, next) => {
+    this.express.get("/login/status", auth, (req, res, next) => {
       this.logger.info("url:::::::" + req.url);
       res.json(this.loggedIn);
     });
