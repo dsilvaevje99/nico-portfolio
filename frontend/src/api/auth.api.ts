@@ -11,6 +11,7 @@ export const login = async (
     });
 
     if (res.status === 200) {
+      localStorage.setItem("jwt", res.data.token);
       return true;
     } else {
       throw new Error();

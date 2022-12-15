@@ -45,10 +45,6 @@
       :rules="inquiryRules"
       @validated="(v) => (fieldsValidity.inquiry = v)"
     />
-    <!-- <TheInquiryTextarea
-      v-model="inquiry"
-      @validated="(v) => (fieldsValidity.inquiry = v)"
-    /> -->
     <div id="contact--submit-btn">
       <button
         type="submit"

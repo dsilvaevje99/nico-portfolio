@@ -2,6 +2,8 @@ import axios from "axios";
 
 const MODE = import.meta.env.MODE;
 
+axios.defaults.headers.common["authorization"] = localStorage.getItem("jwt");
+
 export const Http = {
   BaseURL: `${
     MODE === "production"

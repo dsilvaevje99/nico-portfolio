@@ -15,6 +15,7 @@ const store = useAuthStore();
 const completeLogout = async () => {
   const loggedOut = await logout(store.username);
   if (loggedOut) {
+    localStorage.removeItem("jwt");
     store.logout();
     router.push("/");
   }
