@@ -9,13 +9,10 @@ class AuthAPI {
   public express: express.Application;
   public logger: Logger;
 
-  public loggedIn: Boolean;
-
   constructor() {
     this.express = express();
     this.middleware();
     this.routes();
-    this.loggedIn = false;
     this.logger = new Logger();
   }
 
@@ -60,22 +57,31 @@ class AuthAPI {
             .json({ error: "Login failed! Check authentication credentials" });
         }
         const token = await user.generateAuthToken();
-        this.loggedIn = true;
         res.status(200).json({ user, token });
       } catch (err) {
         res.status(400).json({ err: err });
       }
     });
 
-    this.express.post("/logout", auth, (req, res, next) => {
-      this.logger.info("url:::::::" + req.url);
-      this.loggedIn = false;
-      res.json("Logging out");
+    this.express.post("/logout", auth, async (req, res, next) => {
+      const username = req.body.username;
+      this.logger.info("url::::::: logging out user " + username);
+      const updated = await Model.findOneAndUpdate(
+        { username },
+        { tokens: [] },
+        { new: true }
+      );
+      if (updated) {
+        res.json(updated.tokens.length === 0);
+      } else {
+        res.status(400).json({ err: "Failed to logout" });
+      }
     });
 
     this.express.get("/login/status", auth, (req, res, next) => {
       this.logger.info("url:::::::" + req.url);
-      res.json(this.loggedIn);
+      // Always return true if request passes auth middleware
+      res.json(true);
     });
   }
 }
