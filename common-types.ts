@@ -1,3 +1,14 @@
+export enum NotificationType {
+  error = "error",
+  success = "success",
+}
+export interface Notification {
+  type: NotificationType;
+  id: symbol;
+  statusCode: string;
+  message: string;
+}
+
 export interface Film {
   _id: string;
   placement: number;

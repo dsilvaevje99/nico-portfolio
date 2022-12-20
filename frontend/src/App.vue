@@ -10,6 +10,7 @@
     </div>
     <TheFooter />
     <TheLogoutButton v-if="authStore.loggedIn" />
+    <TheNotificationStack />
   </div>
 </template>
 
@@ -22,6 +23,7 @@ import { RouterView } from "vue-router";
 import TheHeader from "@/components/header/TheHeader.vue";
 import TheFooter from "@/components/TheFooter.vue";
 import TheLogoutButton from "@/components/buttons/TheLogoutButton.vue";
+import TheNotificationStack from "@/components/cards/TheNotificationStack.vue";
 
 const photoStore = usePhotoStore();
 const authStore = useAuthStore();
