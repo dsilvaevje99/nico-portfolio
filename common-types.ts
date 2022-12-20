@@ -29,7 +29,7 @@ export interface Photo {
 }
 
 export interface Inquiry {
-  id: number;
+  _id: string;
   name: string;
   email: string;
   company: string;

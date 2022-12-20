@@ -182,7 +182,8 @@ h2 {
   display: grid;
 }
 
-#contact-form {
+#contact-form,
+#contact-form--submit-msg {
   width: 80vw;
   float: right;
   grid-template-rows: auto auto auto auto auto;
@@ -190,6 +191,11 @@ h2 {
   row-gap: 1rem;
   padding: 2rem var(--page-padding) 3rem 2rem;
   background-color: var(--text-tertiary);
+}
+
+#contact-form--submit-msg > * {
+  text-align: right;
+  padding: 0.5rem 0;
 }
 
 /* Films page grid layout */

@@ -8,6 +8,13 @@
     <div class="flex--justify-between inquiry-card--header">
       <p>
         <strong>{{ props.inquiry.name }}</strong>
+        <span
+          v-if="props.inquiry.company"
+          style="font-weight: 300"
+          class="grey"
+        >
+          <br />@ {{ props.inquiry.company }}
+        </span>
       </p>
       <p class="grey">{{ date }}</p>
     </div>
@@ -15,10 +22,13 @@
       {{ props.inquiry.body }}
     </p>
     <div v-if="expanded" class="flex--justify-end" style="gap: 1rem">
-      <button class="btn btn--size-small btn--icon-only">
+      <button class="btn btn--size-small btn--icon-only" @click="unopenMsg">
         <font-awesome-icon icon="fa-solid fa-eye" />
       </button>
-      <button class="btn btn--size-small btn--icon-only">
+      <button
+        class="btn btn--size-small btn--icon-only"
+        @click="store.deleteInquiry(props.inquiry._id)"
+      >
         <font-awesome-icon icon="fa-solid fa-trash" />
       </button>
     </div>
@@ -47,14 +57,19 @@ const props = defineProps({
 
 const expanded = ref<Boolean>(false);
 const date = computed<string>(() => {
-  const d = props.inquiry.date;
-  return `${d.getDate()}.${d.getMonth()}.${d.getFullYear()}`;
+  const d = new Date(props.inquiry.date);
+  return `${d.getDate()}.${d.getMonth() + 1}.${d.getFullYear()}`;
 });
 
 const openMsg = () => {
   expanded.value = true;
   if (!props.inquiry.opened) {
-    store.markAsOpened(props.inquiry.id);
+    store.markAsOpened(props.inquiry._id);
   }
+};
+
+const unopenMsg = () => {
+  expanded.value = false;
+  store.markAsUnread(props.inquiry._id);
 };
 </script>

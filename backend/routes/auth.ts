@@ -1,6 +1,8 @@
 import * as bodyParser from "body-parser";
 import * as express from "express";
 import { Logger } from "../logger/logger";
+import auth from "../middleware/auth";
+import { body } from "express-validator";
 
 const Model = require("../models/users");
 
@@ -8,13 +10,10 @@ class AuthAPI {
   public express: express.Application;
   public logger: Logger;
 
-  public loggedIn: Boolean;
-
   constructor() {
     this.express = express();
     this.middleware();
     this.routes();
-    this.loggedIn = false;
     this.logger = new Logger();
   }
 
@@ -25,56 +24,81 @@ class AuthAPI {
   }
 
   private routes(): void {
-    this.express.post("/user", async (req, res, next) => {
-      this.logger.info("url:::::::" + req.url);
+    this.express.post(
+      "/user",
+      body("username").not().isEmpty().isLength({ min: 3 }).trim().escape(),
+      body("password").not().isEmpty().isLength({ min: 7 }).trim().escape(),
+      auth,
+      async (req, res, next) => {
+        this.logger.info("url:::::::" + req.url);
 
-      try {
-        /* console.log(isUser);
+        try {
+          /* console.log(isUser);
         if (isUser.length >= 1) {
           return res.status(409).json({
             message: "username already in use",
           });
         } */
-        const user = new Model({
-          username: req.body.username,
-          password: req.body.password,
-        });
-        let data = await user.save();
-        const token = await user.generateAuthToken();
-        res.status(200).json({ data, token });
-      } catch (err) {
-        res.status(400).json({ err: err });
-      }
-    });
-
-    this.express.post("/login", async (req, res, next) => {
-      this.logger.info("url:::::::" + req.url);
-      try {
-        const username = req.body.username;
-        const password = req.body.password;
-        const user = await Model.findByCredentials(username, password);
-        if (!user) {
-          return res
-            .status(401)
-            .json({ error: "Login failed! Check authentication credentials" });
+          const user = new Model({
+            username: req.body.username,
+            password: req.body.password,
+          });
+          let data = await user.save();
+          const token = await user.generateAuthToken();
+          res.status(200).json({ data, token });
+        } catch (err) {
+          res.status(400).json({ err: err });
         }
-        const token = await user.generateAuthToken();
-        this.loggedIn = true;
-        res.status(200).json({ user, token });
-      } catch (err) {
-        res.status(400).json({ err: err });
       }
-    });
+    );
 
-    this.express.post("/logout", (req, res, next) => {
-      this.logger.info("url:::::::" + req.url);
-      this.loggedIn = false;
-      res.json("Logging out");
-    });
+    this.express.post(
+      "/login",
+      body("username").not().isEmpty().isLength({ min: 3 }).trim().escape(),
+      body("password").not().isEmpty().isLength({ min: 7 }).trim().escape(),
+      async (req, res, next) => {
+        this.logger.info("url:::::::" + req.url);
+        try {
+          const username = req.body.username;
+          const password = req.body.password;
+          const user = await Model.findByCredentials(username, password);
+          if (!user) {
+            return res.status(401).json({
+              error: "Login failed! Check authentication credentials",
+            });
+          }
+          const token = await user.generateAuthToken();
+          res.status(200).json({ user, token });
+        } catch (err) {
+          res.status(400).json({ err: err });
+        }
+      }
+    );
 
-    this.express.get("/login/status", (req, res, next) => {
+    this.express.post(
+      "/logout",
+      body("username").not().isEmpty().isLength({ min: 3 }).trim().escape(),
+      auth,
+      async (req, res, next) => {
+        const username = req.body.username;
+        this.logger.info("url::::::: logging out user " + username);
+        const updated = await Model.findOneAndUpdate(
+          { username },
+          { tokens: [] },
+          { new: true }
+        );
+        if (updated) {
+          res.json(updated.tokens.length === 0);
+        } else {
+          res.status(400).json({ err: "Failed to logout" });
+        }
+      }
+    );
+
+    this.express.get("/login/status", auth, (req, res, next) => {
       this.logger.info("url:::::::" + req.url);
-      res.json(this.loggedIn);
+      // Always return true if request passes auth middleware
+      res.json(true);
     });
   }
 }
