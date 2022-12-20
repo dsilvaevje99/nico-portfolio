@@ -2,8 +2,8 @@
   <div class="film--tile-thumbnail">
     <img :src="props.film.thumbnail" alt="Thumbnail" />
   </div>
-  <h2 class="film--tile-title">{{ props.film.title }}</h2>
-  <p class="film--tile-description">{{ props.film.description }}</p>
+  <h2 class="film--tile-title" v-html="props.film.title"></h2>
+  <p class="film--tile-description" v-html="props.film.description"></p>
 </template>
 
 <script lang="ts" setup>

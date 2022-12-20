@@ -18,9 +18,10 @@
       </p>
       <p class="grey">{{ date }}</p>
     </div>
-    <p :class="{ 'text-overflow--ellipsis': !expanded }">
-      {{ props.inquiry.body }}
-    </p>
+    <p
+      :class="{ 'text-overflow--ellipsis': !expanded }"
+      v-html="props.inquiry.body"
+    ></p>
     <div v-if="expanded" class="flex--justify-end" style="gap: 1rem">
       <button class="btn btn--size-small btn--icon-only" @click="unopenMsg">
         <font-awesome-icon icon="fa-solid fa-eye" />

@@ -13,8 +13,8 @@
       <div id="featured-film-details--container">
         <div id="featured-film-details--bg"></div>
         <div id="featured-film-details--content">
-          <h2 id="featured-film--title">{{ store.featuredFilm?.title }}</h2>
-          <p>{{ store.featuredFilm?.description }}</p>
+          <h2 id="featured-film--title" v-html="store.featuredFilm?.title"></h2>
+          <p v-html="store.featuredFilm?.description"></p>
           <table id="featured-film-details--table">
             <tr>
               <td>Project type</td>

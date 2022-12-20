@@ -9,10 +9,8 @@
       <YouTube :src="film.src" />
     </div>
     <div id="film-details--title">
-      <h1>{{ film.title }}</h1>
-      <p>
-        {{ film.description }}
-      </p>
+      <h1 v-html="film.title"></h1>
+      <p v-html="film.description"></p>
     </div>
     <div id="film-details--details">
       <table>
