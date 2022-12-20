@@ -40,7 +40,6 @@ class FilmAPI {
 
     this.express.post("/films", auth, async (req, res, next) => {
       this.logger.info("POST:::::::" + req.url);
-      console.log(req.body);
       const data = new Model({ ...req.body });
       try {
         const dataToSave = await data.save();
@@ -53,7 +52,6 @@ class FilmAPI {
 
     this.express.put("/films/:id", auth, async (req, res, next) => {
       this.logger.info("PUT:::::::" + req.url);
-      console.log(req.body);
       try {
         const id = req.params.id;
         const updatedData = req.body;
@@ -62,6 +60,17 @@ class FilmAPI {
         const result = await Model.findByIdAndUpdate(id, updatedData, options);
 
         res.send(result);
+      } catch (error) {
+        res.status(400).json({ message: error.message });
+      }
+    });
+
+    this.express.delete("/films/:id", auth, async (req, res, next) => {
+      this.logger.info("DELETE:::::::" + req.url);
+      try {
+        const id = req.params.id;
+        const data = await Model.findByIdAndDelete(id);
+        res.send(`${data.title} has been deleted.`);
       } catch (error) {
         res.status(400).json({ message: error.message });
       }

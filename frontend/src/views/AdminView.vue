@@ -48,20 +48,29 @@
           ><font-awesome-icon icon="fa-solid fa-user" />Inquiries</template
         >
         <template #body>
-          <ExpandableInquiryCard
-            v-for="msg in inquiryStore.shownInquiries"
-            :inquiry="msg"
-            :key="`inquiry-${msg.id}`"
-          />
-          <button
-            v-if="
-              inquiryStore.shownInquiries.length < inquiryStore.inquiries.length
-            "
-            class="btn btn--text-secondary"
-            @click="inquiryStore.loadMore()"
+          <p
+            v-if="inquiryStore.shownInquiries.length === 0"
+            style="text-align: center; padding: 2rem 0"
           >
-            Load more....
-          </button>
+            No inquiries to show!
+          </p>
+          <div v-else>
+            <ExpandableInquiryCard
+              v-for="msg in inquiryStore.shownInquiries"
+              :inquiry="msg"
+              :key="`inquiry-${msg._id}`"
+            />
+            <button
+              v-if="
+                inquiryStore.shownInquiries.length <
+                inquiryStore.inquiries.length
+              "
+              class="btn btn--text-secondary"
+              @click="inquiryStore.loadMore()"
+            >
+              Load more....
+            </button>
+          </div>
         </template>
       </AdminPageCard>
       <AdminPageCard

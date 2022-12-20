@@ -1,5 +1,9 @@
 <template>
-  <form class="form--container" id="contact-form">
+  <div v-if="successfullSubmit" id="contact-form--submit-msg">
+    <p class="title">Message sent</p>
+    <p>I will get back to you as soon as possible!</p>
+  </div>
+  <form v-else class="form--container" id="contact-form">
     <TextInput
       v-model="fullName"
       name="fullName"
@@ -50,6 +54,7 @@
         type="submit"
         class="btn btn--filled-primary float-right"
         :disabled="!valid"
+        @click="submitInquiry"
       >
         Submit
       </button>
@@ -67,7 +72,9 @@ import {
   inquiryRules,
 } from "@/form-rules";
 import CustomTextarea from "../inputs/CustomTextarea.vue";
+import { saveNewInquiry } from "@/api/inquiries.api";
 
+const successfullSubmit = ref<boolean>(false);
 const fullName = ref<string>("");
 const email = ref<string>("");
 const company = ref<string>("");
@@ -81,4 +88,20 @@ const fieldsValidity = ref({
 const valid = computed<Boolean>(
   () => !JSON.stringify(fieldsValidity.value).includes("false")
 );
+
+const submitInquiry = async (e: any) => {
+  e.preventDefault();
+  const saved = await saveNewInquiry({
+    _id: "",
+    name: fullName.value,
+    email: email.value,
+    company: company.value,
+    body: inquiry.value,
+    date: new Date(),
+    opened: false,
+  });
+  if (saved) {
+    successfullSubmit.value = true;
+  }
+};
 </script>
