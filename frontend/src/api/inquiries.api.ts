@@ -1,5 +1,6 @@
 import { Http } from "@/api/http";
 import type { Inquiry } from "@/../../common-types";
+import { displayError } from "@/helpers/notificationHelpers";
 
 export const getAllInquiries = async (): Promise<Inquiry[] | false> => {
   try {
@@ -26,6 +27,7 @@ export const saveNewInquiry = async (payload: Inquiry): Promise<boolean> => {
       throw new Error();
     }
   } catch (e: any) {
+    displayError(e, "Failed to send inquiry. Try again later!");
     return false;
   }
 };
@@ -43,6 +45,10 @@ export const updateInquiry = async (inquiry: Inquiry): Promise<boolean> => {
       throw new Error();
     }
   } catch (e: any) {
+    displayError(
+      e,
+      `Inquiry by ${inquiry.name} could not be marked as open. It is likely invalid.`
+    );
     return false;
   }
 };
@@ -57,6 +63,7 @@ export const deleteInquiry = async (id: string): Promise<boolean> => {
       throw new Error();
     }
   } catch (e: any) {
+    displayError(e, "Could not delete inquiry. Try again later!");
     return false;
   }
 };
