@@ -718,6 +718,10 @@ footer > p {
 .inquiry-card--header > p:first-child {
   font-weight: 500;
 }
+.inquiry-card--actions {
+  gap: 1rem;
+  padding-top: 1rem;
+}
 
 #film-modal--container {
   background-color: var(--bg-color);

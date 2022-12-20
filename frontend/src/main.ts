@@ -29,6 +29,7 @@ import {
 import {
   faBuilding,
   faStar as faStarOutlined,
+  faEnvelope,
 } from "@fortawesome/free-regular-svg-icons";
 import { faInstagram, faImdb } from "@fortawesome/free-brands-svg-icons";
 
@@ -52,6 +53,7 @@ library.add(
   faAt,
   faBuilding,
   faStarOutlined,
+  faEnvelope,
   faKey,
   faInstagram,
   faImdb

@@ -22,16 +22,22 @@
       :class="{ 'text-overflow--ellipsis': !expanded }"
       v-html="props.inquiry.body"
     ></p>
-    <div v-if="expanded" class="flex--justify-end" style="gap: 1rem">
-      <button class="btn btn--size-small btn--icon-only" @click="unopenMsg">
-        <font-awesome-icon icon="fa-solid fa-eye" />
-      </button>
-      <button
-        class="btn btn--size-small btn--icon-only"
-        @click="store.deleteInquiry(props.inquiry._id)"
+    <div v-if="expanded" class="flex--justify-between inquiry-card--actions">
+      <a :href="`mailto:${props.inquiry.email}`" target="_blank"
+        ><font-awesome-icon icon="fa-regular fa-envelope" />
+        {{ props.inquiry.email }}</a
       >
-        <font-awesome-icon icon="fa-solid fa-trash" />
-      </button>
+      <div class="flex--row" style="gap: 1rem">
+        <button class="btn btn--size-small btn--icon-only" @click="unopenMsg">
+          <font-awesome-icon icon="fa-solid fa-eye" />
+        </button>
+        <button
+          class="btn btn--size-small btn--icon-only"
+          @click="store.deleteInquiry(props.inquiry._id)"
+        >
+          <font-awesome-icon icon="fa-solid fa-trash" />
+        </button>
+      </div>
     </div>
     <button v-if="!expanded" class="btn btn--card-expand" @click="openMsg">
       Details <font-awesome-icon icon="fa-solid fa-chevron-down" />
