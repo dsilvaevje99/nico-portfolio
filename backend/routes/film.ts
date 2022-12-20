@@ -42,11 +42,12 @@ class FilmAPI {
     this.express.post(
       "/films",
       body("placement").isInt({ min: 0 }),
-      body(["src", "thumbnail", "title", "type", "date", "location"])
+      body(["title", "type", "date", "location"])
         .not()
         .isEmpty()
         .trim()
         .escape(),
+      body(["src", "thumbnail"]).not().isEmpty().isURL().trim(),
       body("slug").isSlug().trim().escape(),
       body("description").isString().not().isEmpty().isLength({ max: 500 }),
       body(["client", "company", "framesUrl"]).trim().escape(),
@@ -76,11 +77,12 @@ class FilmAPI {
       "/films/:id",
       param("id").not().isEmpty().trim().escape(),
       body("placement").isInt({ min: 0 }),
-      body(["src", "thumbnail", "title", "type", "date", "location"])
+      body(["title", "type", "date", "location"])
         .not()
         .isEmpty()
         .trim()
         .escape(),
+      body(["src", "thumbnail"]).not().isEmpty().isURL().trim(),
       body("slug").isSlug().trim().escape(),
       body("description").isString().not().isEmpty().isLength({ max: 500 }),
       body(["client", "company", "framesUrl"]).trim().escape(),
