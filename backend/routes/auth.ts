@@ -2,7 +2,7 @@ import * as bodyParser from "body-parser";
 import * as express from "express";
 import { Logger } from "../logger/logger";
 import auth from "../middleware/auth";
-import { body } from "express-validator";
+import { body, validationResult } from "express-validator";
 
 const Model = require("../models/users");
 
@@ -33,6 +33,8 @@ class AuthAPI {
         this.logger.info("url:::::::" + req.url);
 
         try {
+          validationResult(req).throw();
+
           /* console.log(isUser);
         if (isUser.length >= 1) {
           return res.status(409).json({
@@ -46,8 +48,10 @@ class AuthAPI {
           let data = await user.save();
           const token = await user.generateAuthToken();
           res.status(200).json({ data, token });
-        } catch (err) {
-          res.status(400).json({ err: err });
+        } catch (error) {
+          res
+            .status(400)
+            .json({ message: error.message ? error.message : error.mapped() });
         }
       }
     );
@@ -59,6 +63,8 @@ class AuthAPI {
       async (req, res, next) => {
         this.logger.info("url:::::::" + req.url);
         try {
+          validationResult(req).throw();
+
           const username = req.body.username;
           const password = req.body.password;
           const user = await Model.findByCredentials(username, password);
@@ -69,8 +75,10 @@ class AuthAPI {
           }
           const token = await user.generateAuthToken();
           res.status(200).json({ user, token });
-        } catch (err) {
-          res.status(400).json({ err: err });
+        } catch (error) {
+          res
+            .status(400)
+            .json({ message: error.message ? error.message : error.mapped() });
         }
       }
     );
@@ -80,6 +88,11 @@ class AuthAPI {
       body("username").not().isEmpty().isLength({ min: 3 }).trim().escape(),
       auth,
       async (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty) {
+          res.status(400).json({ message: errors.mapped() });
+        }
+
         const username = req.body.username;
         this.logger.info("url::::::: logging out user " + username);
         const updated = await Model.findOneAndUpdate(

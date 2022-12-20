@@ -80,6 +80,11 @@ const props = defineProps({
     required: false,
     default: () => [],
   },
+  validateOnBlur: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
 });
 
 const emit = defineEmits(["update:modelValue", "validated"]);
@@ -96,7 +101,7 @@ const showClearBtn = computed(
 const inputChanged = (e: any) => {
   const val = e.target.value;
   emit("update:modelValue", val);
-  validate(e);
+  if (!props.validateOnBlur) validate(e);
 };
 
 const validate = (e: any) => {

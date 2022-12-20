@@ -15,6 +15,7 @@ export const companyRules = [
 
 export const inquiryRules = [
   (v: string) => v.length > 0 || "Inquiry cannot be empty",
+  (v: string) => v.length >= 10 || "Inquiry must be at least 10 characters",
   (v: string) => v.length <= 300 || "Inquiry cannot exceed 300 characters",
 ];
 

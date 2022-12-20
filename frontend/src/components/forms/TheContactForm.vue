@@ -47,6 +47,7 @@
       required
       :maxLength="300"
       :rules="inquiryRules"
+      validateOnBlur
       @validated="(v) => (fieldsValidity.inquiry = v)"
     />
     <div id="contact--submit-btn">

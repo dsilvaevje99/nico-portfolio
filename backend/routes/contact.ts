@@ -3,7 +3,7 @@ import * as express from "express";
 import { Logger } from "../logger/logger";
 import { Inquiry } from "../../common-types";
 import auth from "../middleware/auth";
-import { body, param } from "express-validator";
+import { body, param, validationResult } from "express-validator";
 
 const Model = require("../models/inquiries");
 
@@ -41,16 +41,20 @@ class InquiryAPI {
       body("email").isEmail().normalizeEmail(),
       body("company").trim().escape(),
       body("body").isString().isLength({ min: 10, max: 300 }).trim().escape(),
-      body("date").not().isEmpty().isDate().trim().escape(),
+      body("date").not().isEmpty().isString().trim().escape(),
       body("opened").isBoolean(),
       async (req, res, next) => {
         this.logger.info("POST:::::::" + req.url);
         const data = new Model({ ...req.body });
         try {
+          validationResult(req).throw();
+
           const dataToSave = await data.save();
           res.status(200).json(dataToSave);
         } catch (error) {
-          res.status(400).json({ message: error.message });
+          res
+            .status(400)
+            .json({ message: error.message ? error.message : error.mapped() });
         }
       }
     );
@@ -68,6 +72,8 @@ class InquiryAPI {
       async (req, res, next) => {
         this.logger.info("PUT:::::::" + req.url);
         try {
+          validationResult(req).throw();
+
           const id = req.params.id;
           const updatedData = req.body;
           const options = { new: true };
@@ -80,7 +86,9 @@ class InquiryAPI {
 
           res.send(result);
         } catch (error) {
-          res.status(400).json({ message: error.message });
+          res
+            .status(400)
+            .json({ message: error.message ? error.message : error.mapped() });
         }
       }
     );
@@ -92,11 +100,15 @@ class InquiryAPI {
       async (req, res, next) => {
         this.logger.info("DELETE:::::::" + req.url);
         try {
+          validationResult(req).throw();
+
           const id = req.params.id;
           const data = await Model.findByIdAndDelete(id);
           res.send(`Message from ${data.name} has been deleted.`);
         } catch (error) {
-          res.status(400).json({ message: error.message });
+          res
+            .status(400)
+            .json({ message: error.message ? error.message : error.mapped() });
         }
       }
     );

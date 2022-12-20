@@ -3,7 +3,7 @@ import * as express from "express";
 import { Logger } from "../logger/logger";
 import { Film } from "../../common-types";
 import auth from "../middleware/auth";
-import { body, param } from "express-validator";
+import { body, param, validationResult } from "express-validator";
 
 const Model = require("../models/films");
 
@@ -59,11 +59,15 @@ class FilmAPI {
         this.logger.info("POST:::::::" + req.url);
         const data = new Model({ ...req.body });
         try {
+          validationResult(req).throw();
+
           const dataToSave = await data.save();
           this.films.push(req.body);
           res.status(200).json(dataToSave);
         } catch (error) {
-          res.status(400).json({ message: error.message });
+          res
+            .status(400)
+            .json({ message: error.message ? error.message : error.mapped() });
         }
       }
     );
@@ -88,6 +92,8 @@ class FilmAPI {
       async (req, res, next) => {
         this.logger.info("PUT:::::::" + req.url);
         try {
+          validationResult(req).throw();
+
           const id = req.params.id;
           const updatedData = req.body;
           const options = { new: true };
@@ -100,7 +106,9 @@ class FilmAPI {
 
           res.send(result);
         } catch (error) {
-          res.status(400).json({ message: error.message });
+          res
+            .status(400)
+            .json({ message: error.message ? error.message : error.mapped() });
         }
       }
     );
@@ -112,11 +120,15 @@ class FilmAPI {
       async (req, res, next) => {
         this.logger.info("DELETE:::::::" + req.url);
         try {
+          validationResult(req).throw();
+
           const id = req.params.id;
           const data = await Model.findByIdAndDelete(id);
           res.send(`${data.title} has been deleted.`);
         } catch (error) {
-          res.status(400).json({ message: error.message });
+          res
+            .status(400)
+            .json({ message: error.message ? error.message : error.mapped() });
         }
       }
     );
