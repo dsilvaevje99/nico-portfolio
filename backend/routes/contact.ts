@@ -66,7 +66,7 @@ class InquiryAPI {
       body("email").isEmail().normalizeEmail(),
       body("company").trim().escape(),
       body("body").not().isEmpty().isLength({ min: 10 }).trim().escape(),
-      body("date").not().isEmpty().isDate().trim().escape(),
+      body("date").not().isEmpty().isString().trim().escape(),
       body("opened").isBoolean(),
       auth,
       async (req, res, next) => {
