@@ -284,7 +284,8 @@ h2 {
   padding-bottom: 0.5rem;
 }
 #film-details--title > p {
-  color: var(--text-secondary);
+  color: var(--text-primary);
+  opacity: 0.75;
 }
 #film-details--player {
   width: calc(100vw - 8px);
