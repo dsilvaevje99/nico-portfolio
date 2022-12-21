@@ -14,7 +14,7 @@
   display: block;
   color: var(--text-primary);
   font-size: 2rem;
-  z-index: 4;
+  z-index: 99999999;
   position: fixed;
   top: 1rem;
   right: var(--page-padding);
@@ -38,19 +38,19 @@
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 5;
+  z-index: 999999;
   overflow-y: hidden;
   background-color: rgba(0, 0, 0, 0.75);
 }
 
 .overlay--fullscreen-active {
-  z-index: 5;
+  z-index: 999999;
   display: block;
 }
 
 .nav--container {
   position: fixed;
-  z-index: 3;
+  z-index: 9999999;
   top: 0;
   right: 0;
   bottom: 0;
