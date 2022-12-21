@@ -205,7 +205,7 @@
         <div v-if="expanded">
           <button
             class="btn btn--filled-red"
-            @click="deleteFilm(film.placement)"
+            @click="deleteAndClose(film.placement, film._id)"
           >
             Delete film locally
           </button>
@@ -216,9 +216,9 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, watch, customRef } from "vue";
+import { ref, computed, watch } from "vue";
 import PopupModal from "@/components/PopupModal.vue";
-import type { Credit, Film } from "@/../../common-types";
+import type { Film } from "@/../../common-types";
 import TextInput from "@/components/inputs/TextInput.vue";
 import CustomTextarea from "@/components/inputs/CustomTextarea.vue";
 import { urlRules } from "@/form-rules";
@@ -358,6 +358,14 @@ const discardChanges = (e: any) => {
 
 const deleteFilm = (index: number) => {
   store.films.splice(index, 1);
+};
+
+const deleteAndClose = (index: number, id: string) => {
+  if (!id.includes("temp")) {
+    store.deletedFilms.push(id);
+  }
+  deleteFilm(index);
+  emit("close");
 };
 
 const submitValues = (e: any) => {

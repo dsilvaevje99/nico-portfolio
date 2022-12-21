@@ -57,3 +57,18 @@ export const saveEditedFilm = async (film: Film): Promise<Film | false> => {
     return false;
   }
 };
+
+export const deleteFilm = async (id: string): Promise<boolean> => {
+  try {
+    const res = await Http.Client.delete(`${Http.BaseURL}/films/${id}`);
+
+    if (res.status === 200) {
+      return true;
+    } else {
+      throw new Error();
+    }
+  } catch (e: any) {
+    displayError(e, "Could not delete film. Try again later!");
+    return false;
+  }
+};
