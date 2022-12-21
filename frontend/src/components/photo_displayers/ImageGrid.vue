@@ -37,7 +37,6 @@ const toggleModal = (img?: Photo, usingKeyboard?: Boolean) => {
   if (open.value) {
     // Closing
     justClosed.value = true;
-    document.body.style.overflow = "initial";
     open.value = false;
     const initialEl = document.getElementById(`image-${modalImg.value?.id}`);
     initialEl?.focus();
@@ -47,7 +46,6 @@ const toggleModal = (img?: Photo, usingKeyboard?: Boolean) => {
       justClosed.value = false;
       return;
     }
-    document.body.style.overflow = "hidden";
     modalImg.value = img || undefined;
     open.value = true;
   }

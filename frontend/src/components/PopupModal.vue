@@ -21,6 +21,7 @@
 </template>
 
 <script lang="ts" setup>
+import { watch } from "vue";
 import useFocusTrap from "@/composables/useFocusTrap";
 
 defineEmits(["close"]);
@@ -29,6 +30,14 @@ const props = defineProps({
     type: Boolean,
     required: true,
   },
+});
+
+watch(props, () => {
+  if (props.open) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "initial";
+  }
 });
 
 const { trapRef } = useFocusTrap();
