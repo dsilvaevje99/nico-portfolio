@@ -27,7 +27,17 @@ export const saveNewInquiry = async (payload: Inquiry): Promise<boolean> => {
       throw new Error();
     }
   } catch (e: any) {
-    displayError(e, "Failed to send inquiry. Try again later!");
+    const response = e.response.data.message;
+    const invalidFields =
+      typeof response === "object" ? Object.keys(response) : [];
+    displayError(
+      e,
+      invalidFields.length > 0
+        ? `Failed to send inquiry due to invalid value in field${
+            invalidFields.length > 1 ? "s" : ""
+          }: ${invalidFields.join(", ")}`
+        : "Failed to send inquiry. Try again later!"
+    );
     return false;
   }
 };

@@ -37,7 +37,12 @@ class InquiryAPI {
 
     this.express.post(
       "/inquiries",
-      body("name").not().isEmpty().isLength({ min: 2 }).trim().escape(),
+      body("name")
+        .not()
+        .isEmpty()
+        .isLength({ min: 2, max: 50 })
+        .trim()
+        .escape(),
       body("email").isEmail().normalizeEmail(),
       body("company").trim().escape(),
       body("body").isString().isLength({ min: 10, max: 300 }).trim().escape(),
@@ -62,7 +67,12 @@ class InquiryAPI {
     this.express.put(
       "/inquiries/:id",
       param("id").not().isEmpty().trim().escape(),
-      body("name").not().isEmpty().isLength({ min: 2 }).trim().escape(),
+      body("name")
+        .not()
+        .isEmpty()
+        .isLength({ min: 2, max: 50 })
+        .trim()
+        .escape(),
       body("email").isEmail().normalizeEmail(),
       body("company").trim().escape(),
       body("body").not().isEmpty().isLength({ min: 10 }).trim().escape(),
