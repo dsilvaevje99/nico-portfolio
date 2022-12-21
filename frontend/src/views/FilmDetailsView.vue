@@ -36,7 +36,7 @@
         </tr>
       </table>
     </div>
-    <div id="film-details--skip">
+    <div id="film-details--skip" v-if="film.frames && film.frames.length > 0">
       <a class="btn btn--text-primary float-right" href="#credits">
         <font-awesome-icon icon="fa-solid fa-arrow-down" />
         Credits
