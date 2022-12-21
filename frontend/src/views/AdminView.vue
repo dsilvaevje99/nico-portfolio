@@ -17,7 +17,7 @@
     >
       <AdminPageCard
         id="admin-films--card-container"
-        :class="{ 'admin-card--span-one': shortestCard === filmCardHeight }"
+        class="admin-card--span-one"
       >
         <template #title
           ><font-awesome-icon icon="fa-solid fa-clapperboard" />Films</template
@@ -29,10 +29,7 @@
           </button>
         </template>
       </AdminPageCard>
-      <AdminPageCard
-        id="admin-photos--card-container"
-        :class="{ 'admin-card--span-one': shortestCard === photoCardHeight }"
-      >
+      <AdminPageCard id="admin-photos--card-container">
         <template #title
           ><font-awesome-icon icon="fa-solid fa-image" />Photos</template
         >
@@ -40,10 +37,7 @@
           <TheAdminPhotos />
         </template>
       </AdminPageCard>
-      <AdminPageCard
-        id="admin-inquiries--card-container"
-        :class="{ 'admin-card--span-one': shortestCard === inquiryCardHeight }"
-      >
+      <AdminPageCard id="admin-inquiries--card-container">
         <template #title
           ><font-awesome-icon icon="fa-solid fa-user" />Inquiries</template
         >
@@ -93,15 +87,7 @@
 </template>
 
 <script lang="ts" setup>
-import {
-  onBeforeMount,
-  onUpdated,
-  onMounted,
-  nextTick,
-  ref,
-  computed,
-  watch,
-} from "vue";
+import { onBeforeMount, onMounted, nextTick, ref, computed, watch } from "vue";
 import AdminPageCard from "@/components/cards/AdminPageCard.vue";
 import TheAdminFilmTable from "@/components/film_displayers/TheAdminFilmTable.vue";
 import TheAdminPhotos from "@/components/TheAdminPhotos.vue";
@@ -120,16 +106,14 @@ const inquiryStore = useInquiryStore();
 const filmModal = ref<boolean>(false);
 const editingFilm = ref<Film>();
 
-const filmCardHeight = ref<number>(3);
-const photoCardHeight = ref<number>(2);
-const inquiryCardHeight = ref<number>(1);
+const filmCardHeight = ref<number>(1);
+const filmsCount = computed<number>(() => filmStore.films.length);
 const hasMadeChanges = computed<boolean>(
   () => filmStore.hasMadeChanges || photoStore.hasMadeChanges
 );
-const shortestCard = computed<number>(() =>
-  Math.min(filmCardHeight.value, photoCardHeight.value, inquiryCardHeight.value)
+const gridTemplateRows = computed<string>(
+  () => `${filmCardHeight.value}px auto`
 );
-const gridTemplateRows = computed<string>(() => `${shortestCard.value}px auto`);
 
 const editFilm = (film: Film) => {
   editingFilm.value = film;
@@ -150,26 +134,18 @@ const undoAllChanges = () => {
   photoStore.undoChanges();
 };
 
-const getCardHeights = () => {
+const getCardHeight = () => {
   filmCardHeight.value =
-    document.getElementById("admin-films--card-container")?.offsetHeight || 3;
-  photoCardHeight.value =
-    document.getElementById("admin-photos--card-container")?.offsetHeight || 2;
-  inquiryCardHeight.value =
-    document.getElementById("admin-inquiries--card-container")?.offsetHeight ||
-    1;
+    document.getElementById("admin-films--card-container")?.offsetHeight || 1;
 };
 
-onUpdated(() => nextTick(() => getCardHeights()));
+onMounted(() => nextTick(() => getCardHeight()));
 
-onMounted(() => nextTick(() => getCardHeights()));
-
-watch(filmStore.films, () => nextTick(() => getCardHeights()));
+watch(filmsCount, () => nextTick(() => getCardHeight()));
 
 onBeforeMount(() => {
   document.documentElement.setAttribute("data-theme", "admin");
   if (filmStore.films.length <= 0) filmStore.getFilms();
   if (inquiryStore.inquiries.length <= 0) inquiryStore.getInquiries();
-  getCardHeights();
 });
 </script>

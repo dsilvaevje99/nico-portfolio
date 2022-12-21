@@ -47,7 +47,7 @@ export const updateInquiry = async (inquiry: Inquiry): Promise<boolean> => {
   } catch (e: any) {
     displayError(
       e,
-      `Inquiry by ${inquiry.name} could not be marked as open. It is likely invalid.`
+      `Inquiry by ${inquiry.name} could not be marked as open. It is likely invalid, and should be deleted.`
     );
     return false;
   }
