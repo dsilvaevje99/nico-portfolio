@@ -26,8 +26,18 @@ class AuthAPI {
   private routes(): void {
     this.express.post(
       "/user",
-      body("username").not().isEmpty().isLength({ min: 3 }).trim().escape(),
-      body("password").not().isEmpty().isLength({ min: 7 }).trim().escape(),
+      body("username")
+        .not()
+        .isEmpty()
+        .isLength({ min: 3, max: 20 })
+        .trim()
+        .escape(),
+      body("password")
+        .not()
+        .isEmpty()
+        .isLength({ min: 7, max: 30 })
+        .trim()
+        .escape(),
       auth,
       async (req, res, next) => {
         this.logger.info("url:::::::" + req.url);
@@ -56,10 +66,64 @@ class AuthAPI {
       }
     );
 
+    this.express.put(
+      "/user",
+      body("username")
+        .not()
+        .isEmpty()
+        .isLength({ min: 3, max: 20 })
+        .trim()
+        .escape(),
+      body(["oldPassword", "newPassword"])
+        .not()
+        .isEmpty()
+        .isLength({ min: 7, max: 30 })
+        .trim()
+        .escape(),
+      auth,
+      async (req, res, next) => {
+        this.logger.info("url:::::::" + req.url);
+
+        try {
+          validationResult(req).throw();
+
+          const username = req.body.username;
+          const oldPassword = req.body.oldPassword;
+          const newPassword = req.body.newPassword;
+          const user = await Model.findByCredentials(
+            username,
+            oldPassword
+          ).catch(() => {
+            throw new Error("Couldn't find user!");
+          });
+          const updated = await Model.findByIdAndUpdate(
+            user._id,
+            { password: newPassword },
+            { new: true }
+          );
+          res.send({ old: oldPassword, new: updated.password });
+        } catch (error) {
+          res
+            .status(400)
+            .json({ message: error.message ? error.message : error.mapped() });
+        }
+      }
+    );
+
     this.express.post(
       "/login",
-      body("username").not().isEmpty().isLength({ min: 3 }).trim().escape(),
-      body("password").not().isEmpty().isLength({ min: 7 }).trim().escape(),
+      body("username")
+        .not()
+        .isEmpty()
+        .isLength({ min: 3, max: 20 })
+        .trim()
+        .escape(),
+      body("password")
+        .not()
+        .isEmpty()
+        .isLength({ min: 7, max: 30 })
+        .trim()
+        .escape(),
       async (req, res, next) => {
         this.logger.info("url:::::::" + req.url);
         try {
@@ -85,7 +149,12 @@ class AuthAPI {
 
     this.express.post(
       "/logout",
-      body("username").not().isEmpty().isLength({ min: 3 }).trim().escape(),
+      body("username")
+        .not()
+        .isEmpty()
+        .isLength({ min: 3, max: 20 })
+        .trim()
+        .escape(),
       auth,
       async (req, res, next) => {
         const errors = validationResult(req);

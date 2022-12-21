@@ -24,7 +24,11 @@
         >
         <template #body>
           <TheAdminFilmTable @edit="editFilm" />
-          <button class="btn btn--filled-primary" @click="addFilm">
+          <button
+            class="btn btn--filled-primary"
+            style="margin-left: 1rem"
+            @click="addFilm"
+          >
             <font-awesome-icon icon="fa-solid fa-add" /> Add Film
           </button>
         </template>
@@ -74,7 +78,9 @@
         <template #title
           ><font-awesome-icon icon="fa-solid fa-key" />Change Password</template
         >
-        <template #body></template>
+        <template #body>
+          <TheChangePasswordForm />
+        </template>
       </AdminPageCard>
 
       <AdminFilmModal
@@ -98,6 +104,7 @@ import ExpandableInquiryCard from "@/components/cards/ExpandableInquiryCard.vue"
 import AdminFilmModal from "@/components/AdminFilmModal.vue";
 import LocalLoadingSpinner from "@/components/LocalLoadingSpinner.vue";
 import type { Film } from "@/../../common-types";
+import TheChangePasswordForm from "@/components/forms/TheChangePasswordForm.vue";
 
 const filmStore = useFilmStore();
 const photoStore = usePhotoStore();

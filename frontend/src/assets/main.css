@@ -223,6 +223,10 @@ header {
   outline: none;
 }
 
+.input--container .input--bg-secondary {
+  background: #eaeaea;
+}
+
 .input--container textarea {
   padding-bottom: 0;
 }
@@ -284,6 +288,11 @@ header {
   color: var(--alert-color);
   font-size: 0.8em;
   margin-top: 0.2em;
+}
+
+#change-password-form {
+  gap: 1rem;
+  padding: 0 1rem;
 }
 
 .social--container {

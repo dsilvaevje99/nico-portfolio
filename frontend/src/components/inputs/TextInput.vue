@@ -17,6 +17,7 @@
           'input--invalid-state': error,
           'input--dense': props.dense,
           'input--underlined': props.underlined,
+          'input--bg-secondary': props.secondaryBg,
         }"
         :disabled="props.disabled"
         @input="inputChanged"
@@ -108,6 +109,11 @@ const props = defineProps({
     default: false,
   },
   disabled: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
+  secondaryBg: {
     type: Boolean,
     required: false,
     default: false,

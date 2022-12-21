@@ -29,6 +29,11 @@ export const passwordRules = [
   (v: string) => v.length <= 30 || "Password cannot exceed 30 characters",
 ];
 
+export const newPasswordRules = [
+  (v: string) => v.length >= 7 || "Password must be at least 7 characters",
+  (v: string) => v.length <= 30 || "Password cannot exceed 30 characters",
+];
+
 const urlRegex =
   /[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/;
 export const urlRules = [

@@ -29,6 +29,13 @@ userSchema.pre("save", async function (next: Function) {
   next();
 });
 
+userSchema.pre("findOneAndUpdate", async function (next: Function) {
+  this._update.password = await hash(this._update.password, 8).catch(() => {
+    throw new Error("Failed to hash password");
+  });
+  next();
+});
+
 //this method generates an auth token for the user
 userSchema.methods.generateAuthToken = async function () {
   const user = this;
