@@ -20,7 +20,7 @@
       formId="change-password-form"
       icon="fa-solid fa-key"
       required
-      :rules="newPasswordRules"
+      :rules="[...newPasswordRules, (x: string) => x !== current || 'New password cannot be equal to current password']"
       @validated="(v) => (fieldsValidity.newPass = v)"
       validateOnBlur
       secondaryBg
