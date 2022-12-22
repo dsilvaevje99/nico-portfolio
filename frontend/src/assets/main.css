@@ -593,7 +593,7 @@ footer > p {
   transform: translateX(-50%) translateY(-50%);
   max-width: 75vw;
   max-height: 85vh;
-  z-index: 5;
+  z-index: 9999999;
 }
 
 .modal-content--container {
@@ -601,8 +601,9 @@ footer > p {
   overflow-y: auto;
 }
 
-.modal--container > img {
+.modal-content--container > img {
   max-width: 100%;
+  max-height: 100%;
 }
 
 #popup-close-btn {
