@@ -10,6 +10,11 @@
   margin: 1rem 0;
 }
 
+#btn--logout {
+  right: var(--page-padding);
+  bottom: var(--page-padding);
+}
+
 .nav--toggle-btn {
   display: block;
   color: var(--text-primary);

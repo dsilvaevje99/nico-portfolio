@@ -47,6 +47,11 @@
     margin: 2rem 0;
   }
 
+  #btn--logout {
+    right: var(--page-padding);
+    bottom: 2rem;
+  }
+
   .nav--toggle-btn {
     font-size: 2.5rem;
     top: 1.75rem;
@@ -153,6 +158,10 @@
 @media only screen and (min-width: 1000px) {
   :root {
     --page-padding: 7rem;
+  }
+
+  #btn--logout {
+    right: 2rem;
   }
 
   .nav--container {
