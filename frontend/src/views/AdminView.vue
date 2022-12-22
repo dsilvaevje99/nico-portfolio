@@ -133,8 +133,12 @@ const addFilm = () => {
 };
 
 const saveAllChanges = () => {
-  filmStore.saveChanges();
-  photoStore.saveChanges();
+  if (filmStore.hasMadeChanges) {
+    filmStore.saveChanges();
+  }
+  if (photoStore.hasMadeChanges) {
+    photoStore.saveChanges();
+  }
 };
 
 const undoAllChanges = () => {
