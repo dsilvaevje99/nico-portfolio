@@ -15,7 +15,7 @@
         ref="inputRef"
         :value="modelValue"
         :name="props.name"
-        type="url"
+        :type="props.type === 'link' ? 'url' : 'string'"
         required
         :placeholder="props.placeholder"
         :class="{

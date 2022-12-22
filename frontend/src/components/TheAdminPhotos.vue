@@ -101,19 +101,20 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, computed, watch, onMounted } from "vue";
 import { usePhotoStore } from "@/stores/photo";
 import AdminPhotoLink from "@/components/AdminPhotoLink.vue";
 import PhotoLinkInput from "@/components/inputs/PhotoLinkInput.vue";
 
 const store = usePhotoStore();
 
-const photoPageAlbum = ref<string>(store.adminURLs.photoPageAlbum);
-const profilePic = ref<string>(store.adminURLs.profilePic);
-const processOne = ref<string>(store.adminURLs.processOne);
-const processTwo = ref<string>(store.adminURLs.processTwo);
-const processThree = ref<string>(store.adminURLs.processThree);
-const carouselAlbum = ref<string>(store.adminURLs.carouselAlbum);
+const photoPageAlbum = ref<string>("");
+const profilePic = ref<string>("");
+const processOne = ref<string>("");
+const processTwo = ref<string>("");
+const processThree = ref<string>("");
+const carouselAlbum = ref<string>("");
+const storeUrls = computed(() => store.adminURLs);
 
 const submitPhotoPageAlbum = () => {
   store.adminURLs.photoPageAlbum = photoPageAlbum.value;
@@ -144,4 +145,24 @@ const submitCarouselAlbum = () => {
   store.adminURLs.carouselAlbum = carouselAlbum.value;
   store.editCarouselAlbum = false;
 };
+
+watch(storeUrls, (newUrls, oldUrls) => {
+  if (!oldUrls._id) {
+    photoPageAlbum.value = newUrls.photoPageAlbum;
+    profilePic.value = newUrls.profilePic;
+    processOne.value = newUrls.processOne;
+    processTwo.value = newUrls.processTwo;
+    processThree.value = newUrls.processThree;
+    carouselAlbum.value = newUrls.carouselAlbum;
+  }
+});
+
+onMounted(() => {
+  photoPageAlbum.value = store.adminURLs.photoPageAlbum;
+  profilePic.value = store.adminURLs.profilePic;
+  processOne.value = store.adminURLs.processOne;
+  processTwo.value = store.adminURLs.processTwo;
+  processThree.value = store.adminURLs.processThree;
+  carouselAlbum.value = store.adminURLs.carouselAlbum;
+});
 </script>

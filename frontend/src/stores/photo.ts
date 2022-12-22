@@ -1,17 +1,13 @@
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
-import type { Photo } from "@/../../../common-types";
+import type { Photo, AdminURLs } from "@/../../../common-types";
+import {
+  getAdminUrls,
+  updateAdminUrls,
+  getImgurImages,
+} from "@/api/photos.api";
 
-interface AdminURLs {
-  photoPageAlbum: string;
-  profilePic: string;
-  processOne: string;
-  processTwo: string;
-  processThree: string;
-  carouselAlbum: string;
-}
-
-const MOCK_DATA: Photo[] = [];
+/* const MOCK_DATA: Photo[] = [];
 for (let i = 0; i < 15; i++) {
   MOCK_DATA.push({
     id: i,
@@ -20,21 +16,13 @@ for (let i = 0; i < 15; i++) {
     )}/${Math.floor(Math.random() * (300 - 50 + 1) + 50)}`,
     alt: "",
   });
-}
-
-const MOCK_URLS = {
-  photoPageAlbum: "HC52cjS",
-  profilePic: "https://picsum.photos/id/0/367/267",
-  processOne: "https://picsum.photos/id/0/367/267",
-  processTwo: "https://picsum.photos/id/0/367/267",
-  processThree: "https://picsum.photos/id/0/367/267",
-  carouselAlbum: "HC52cjS",
-};
+} */
 
 export const usePhotoStore = defineStore("photo", () => {
   const photoPageImages = ref<Photo[]>([]);
   const aboutCarouselImages = ref<Photo[]>([]);
   const adminURLs = ref<AdminURLs>({
+    _id: "",
     photoPageAlbum: "",
     profilePic: "",
     processOne: "",
@@ -56,7 +44,7 @@ export const usePhotoStore = defineStore("photo", () => {
   );
 
   const initialFetch = async () => {
-    const urls = await MOCK_URLS;
+    const urls = await getAdminUrls();
     if (urls) {
       adminURLs.value = urls;
       dbCopy = JSON.parse(JSON.stringify(urls));
@@ -65,19 +53,39 @@ export const usePhotoStore = defineStore("photo", () => {
   };
 
   const fetchImages = async () => {
-    const pageImages = await MOCK_DATA; // use adminURLs.photoPageAlbum to fetch
-    const carouselImages = await MOCK_DATA; // use adminURLs.carouselAlbum to fetch
+    const pageImages = await getImgurImages(adminURLs.value.photoPageAlbum);
+    const carouselImages = await getImgurImages(adminURLs.value.carouselAlbum);
     if (pageImages && pageImages.length > 0) {
-      photoPageImages.value = pageImages;
+      photoPageImages.value = pageImages.map((img: any) => {
+        return {
+          id: img.id,
+          url: img.link,
+          alt: img.description || "",
+        };
+      });
     }
     if (carouselImages && carouselImages.length > 0) {
-      aboutCarouselImages.value = carouselImages;
+      aboutCarouselImages.value = carouselImages.map((img: any) => {
+        return {
+          id: img.id,
+          url: img.link,
+          alt: img.description || "",
+        };
+      });
     }
   };
 
   const undoChanges = () => {
     adminURLs.value = JSON.parse(JSON.stringify(dbCopy));
     fetchImages();
+  };
+
+  const saveChanges = async () => {
+    const saved = await updateAdminUrls(adminURLs.value);
+    if (saved) {
+      dbCopy = JSON.parse(JSON.stringify(adminURLs.value));
+      adminURLs.value = JSON.parse(JSON.stringify(dbCopy)); // trigger hasMadeChanges computed update
+    }
   };
 
   return {
@@ -93,5 +101,6 @@ export const usePhotoStore = defineStore("photo", () => {
     editCarouselAlbum,
     initialFetch,
     undoChanges,
+    saveChanges,
   };
 });

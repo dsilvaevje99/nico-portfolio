@@ -4,6 +4,7 @@ import { Logger } from "../logger/logger";
 import { Film } from "../../common-types";
 import auth from "../middleware/auth";
 import { body, param, validationResult } from "express-validator";
+import { sanitizeUrl } from "../helpers/UrlSanitizer";
 
 const Model = require("../models/films");
 
@@ -47,7 +48,12 @@ class FilmAPI {
         .isEmpty()
         .trim()
         .escape(),
-      body(["src", "thumbnail"]).not().isEmpty().isURL().trim(),
+      body(["src", "thumbnail"])
+        .not()
+        .isEmpty()
+        .isURL()
+        .trim()
+        .customSanitizer((url) => sanitizeUrl(url)),
       body("slug").isSlug().trim().escape(),
       body("description").isString().not().isEmpty().isLength({ max: 500 }),
       body(["client", "company", "framesUrl"]).trim().escape(),
@@ -82,7 +88,12 @@ class FilmAPI {
         .isEmpty()
         .trim()
         .escape(),
-      body(["src", "thumbnail"]).not().isEmpty().isURL().trim(),
+      body(["src", "thumbnail"])
+        .not()
+        .isEmpty()
+        .isURL()
+        .trim()
+        .customSanitizer((url) => sanitizeUrl(url)),
       body("slug").isSlug().trim().escape(),
       body("description").isString().not().isEmpty().isLength({ max: 500 }),
       body(["client", "company", "framesUrl"]).trim().escape(),

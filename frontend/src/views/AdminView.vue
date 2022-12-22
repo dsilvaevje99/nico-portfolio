@@ -134,6 +134,7 @@ const addFilm = () => {
 
 const saveAllChanges = () => {
   filmStore.saveChanges();
+  photoStore.saveChanges();
 };
 
 const undoAllChanges = () => {
