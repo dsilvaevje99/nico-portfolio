@@ -6,9 +6,14 @@
     <div
       class="flex--row flex--justify-between flex--align-center admin-photo--link"
     >
-      <p v-if="props.type === 'hash'" class="text-overflow--ellipsis">
+      <a
+        v-if="props.type === 'hash'"
+        :href="`https://imgur.com/a/${props.url}`"
+        target="_blank"
+        class="text-overflow--ellipsis"
+      >
         {{ props.url }}
-      </p>
+      </a>
       <a
         v-else
         :href="props.url"

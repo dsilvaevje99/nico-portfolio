@@ -39,6 +39,16 @@ export interface Photo {
   alt: string;
 }
 
+export interface AdminURLs {
+  _id: string;
+  photoPageAlbum: string;
+  profilePic: string;
+  processOne: string;
+  processTwo: string;
+  processThree: string;
+  carouselAlbum: string;
+}
+
 export interface Inquiry {
   _id: string;
   name: string;

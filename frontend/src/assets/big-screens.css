@@ -77,11 +77,7 @@
   }
   #about--process-section {
     grid-template-columns: 32% 25% 8% 35%;
-    grid-template-rows: auto fit-content auto;
   }
-  /* #about--process-section > p {
-    height: max-content;
-  } */
   #process--p1,
   #process--p3 {
     grid-column: 1/3;
