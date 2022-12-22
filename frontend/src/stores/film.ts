@@ -7,6 +7,7 @@ import {
   saveNewFilm,
   deleteFilm,
 } from "@/api/films.api";
+import { getImgurImages } from "@/api/photos.api";
 
 export const useFilmStore = defineStore("film", () => {
   const films = ref<Film[]>([]);
@@ -55,6 +56,10 @@ export const useFilmStore = defineStore("film", () => {
       await getFilms();
     }
     const found = films.value.find((f: Film) => f.slug === slug);
+    if ((!found?.frames || found.frames.length <= 0) && found?.framesUrl) {
+      const frames = await getImgurImages(found.framesUrl);
+      if (frames) found.frames = frames;
+    }
     return found ? found : null;
   };
 

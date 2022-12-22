@@ -49,7 +49,13 @@ export const getImgurImages = async (
     const res = await Http.Client.get(`${Http.BaseURL}/photos/imgur/${hash}`);
 
     if (res.status === 200) {
-      return res.data;
+      return res.data.map((img: any) => {
+        return {
+          id: img.id,
+          url: img.link,
+          alt: img.description || "",
+        };
+      });
     } else {
       throw new Error();
     }

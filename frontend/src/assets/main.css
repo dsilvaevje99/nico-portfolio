@@ -461,7 +461,6 @@ footer > p {
   background-color: var(--text-secondary);
   min-height: 30vh;
   max-height: 30rem;
-  min-width: 75%;
   max-width: 100%;
   width: auto;
   height: auto;
@@ -603,7 +602,7 @@ footer > p {
 
 .modal-content--container > img {
   max-width: 100%;
-  max-height: 100%;
+  max-height: 84vh;
 }
 
 #popup-close-btn {

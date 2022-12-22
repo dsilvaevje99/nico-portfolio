@@ -10,11 +10,11 @@
       @click="toggleModal(img)"
       @keyup.enter="toggleModal(img, true)"
     >
-      <img :src="img.url" :alt="img.url" />
+      <img :src="img.url" :alt="img.alt" />
     </div>
   </div>
   <PopupModal :open="open" @close="toggleModal">
-    <img :src="modalImg?.url" :alt="modalImg?.url" />
+    <img :src="modalImg?.url" :alt="modalImg?.alt" />
   </PopupModal>
 </template>
 

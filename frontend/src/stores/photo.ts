@@ -56,22 +56,10 @@ export const usePhotoStore = defineStore("photo", () => {
     const pageImages = await getImgurImages(adminURLs.value.photoPageAlbum);
     const carouselImages = await getImgurImages(adminURLs.value.carouselAlbum);
     if (pageImages && pageImages.length > 0) {
-      photoPageImages.value = pageImages.map((img: any) => {
-        return {
-          id: img.id,
-          url: img.link,
-          alt: img.description || "",
-        };
-      });
+      photoPageImages.value = pageImages;
     }
     if (carouselImages && carouselImages.length > 0) {
-      aboutCarouselImages.value = carouselImages.map((img: any) => {
-        return {
-          id: img.id,
-          url: img.link,
-          alt: img.description || "",
-        };
-      });
+      aboutCarouselImages.value = carouselImages;
     }
   };
 
