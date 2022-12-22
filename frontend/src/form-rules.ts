@@ -42,6 +42,11 @@ export const urlRules = [
   (v: string) => urlRegex.test(v) || "Invalid URL",
 ];
 
+export const hashRules = [
+  (v: string) => v.length > 0 || "Hash cannot be empty",
+  (v: string) => v.length <= 10 || "Hash cannot exceed 10 characters",
+];
+
 const monthRegex =
   /^(January|February|March|April|May|June|July|August|September|October|November|December)/i;
 export const monthRules = [

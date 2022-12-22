@@ -40,7 +40,7 @@
 <script lang="ts" setup>
 import { onMounted, ref } from "vue";
 import useValidation from "@/composables/useValidation";
-import { urlRules } from "@/form-rules";
+import { urlRules, hashRules } from "@/form-rules";
 
 const props = defineProps({
   modelValue: {
@@ -72,9 +72,7 @@ const emit = defineEmits(["update:modelValue", "validated", "submit"]);
 
 const { error, inputChanged, validate } = useValidation(
   emit,
-  props.type === "hash"
-    ? [(x: string) => x.length > 0 || "Hash cannot be empty"]
-    : urlRules,
+  props.type === "hash" ? hashRules : urlRules,
   true,
   props.modelValue
 );

@@ -2,7 +2,7 @@ import * as bodyParser from "body-parser";
 import * as express from "express";
 import { Logger } from "../logger/logger";
 import auth from "../middleware/auth";
-import { body, validationResult } from "express-validator";
+import { body, param, validationResult } from "express-validator";
 import { sanitizeUrl } from "../helpers/UrlSanitizer";
 import axios from "axios";
 
@@ -36,25 +36,31 @@ class PhotoAPI {
       }
     });
 
-    this.express.get("/photos/imgur/:hash", async (req, res, next) => {
-      this.logger.info("GET:::::::" + req.url);
-      try {
-        const hash = req.params.hash;
+    this.express.get(
+      "/photos/imgur/:hash",
+      param("hash").not().isEmpty().isString().isLength({ min: 4, max: 10 }),
+      async (req, res, next) => {
+        this.logger.info("GET:::::::" + req.url);
+        try {
+          validationResult(req).throw();
 
-        const data = await axios.get(
-          `https://api.imgur.com/3/album/${hash}/images`,
-          {
-            headers: {
-              Authorization: `Client-ID ${process.env.IMGUR_CLIENT_ID}`,
-            },
-          }
-        );
-        res.status(200).json(data.data.data);
-      } catch (error) {
-        console.log(error);
-        res.status(error.status).json({ message: error.message });
+          const hash = req.params.hash;
+
+          const data = await axios.get(
+            `https://api.imgur.com/3/album/${hash}/images`,
+            {
+              headers: {
+                Authorization: `Client-ID ${process.env.IMGUR_CLIENT_ID}`,
+              },
+            }
+          );
+          res.status(200).json(data.data.data);
+        } catch (error) {
+          console.log(error);
+          res.status(error.status).json({ message: error.message });
+        }
       }
-    });
+    );
 
     this.express.put(
       "/photos",
