@@ -65,6 +65,15 @@
     font-size: 2.5rem;
   }
 
+  .modal--container {
+    max-width: 85vw;
+    max-height: 80vh;
+  }
+
+  .modal-content--container > img {
+    max-width: 85vw;
+  }
+
   /* About page grid layout */
   #about--container {
     grid-template-columns: 30% 70%;
@@ -166,6 +175,13 @@
 
   .nav--container {
     width: 50vw;
+  }
+
+  #popup-close-btn {
+    display: initial;
+  }
+  #popup-close-btn--mobile {
+    display: none;
   }
 
   #contact-form {

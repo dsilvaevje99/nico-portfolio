@@ -448,7 +448,7 @@ footer > p {
   color: var(--bg-color);
   cursor: pointer;
   border: none;
-  z-index: 99999;
+  z-index: 10;
 }
 
 #about--container {
@@ -588,13 +588,11 @@ footer > p {
   top: 50%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
-  max-width: 75vw;
-  max-height: 85vh;
-  z-index: 9999999;
+  z-index: 15;
 }
 
 .modal-content--container {
-  max-height: 85vh;
+  max-width: 100%;
   overflow-y: auto;
 }
 
