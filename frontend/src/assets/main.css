@@ -592,6 +592,7 @@ footer > p {
 }
 
 .modal-content--container {
+  max-height: 85vh;
   max-width: 100%;
   overflow-y: auto;
 }
