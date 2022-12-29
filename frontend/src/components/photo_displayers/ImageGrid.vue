@@ -9,6 +9,7 @@
       role="button"
       @click="toggleModal(img)"
       @keyup.enter="toggleModal(img, true)"
+      aria-label="Image tile"
     >
       <img :src="img.url" :alt="img.alt" />
     </div>

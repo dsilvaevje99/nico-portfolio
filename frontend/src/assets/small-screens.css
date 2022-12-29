@@ -324,11 +324,7 @@ h2 {
   display: flex;
   justify-content: center;
 }
-#film-details--player > div {
-  width: 100% !important;
-  height: auto !important;
-}
-#film-details--player > div > iframe {
+#film-details--player > iframe {
   width: 100% !important;
   height: auto !important;
   aspect-ratio: 16/9 !important;

@@ -6,7 +6,7 @@
   </div>
   <div v-else-if="film" id="film-details--container">
     <div id="film-details--player">
-      <YouTube :src="film.src" />
+      <TheVideoPlayer :src="film.src" />
     </div>
     <div id="film-details--title">
       <h1 v-html="film.title"></h1>
@@ -69,12 +69,12 @@
 <script lang="ts" setup>
 import ImageGrid from "@/components/photo_displayers/ImageGrid.vue";
 import { onBeforeMount, ref } from "vue";
-import YouTube from "vue3-youtube";
 import { useFilmStore } from "@/stores/film";
 import { useRoute } from "vue-router";
 import type { Film } from "@/../../common-types";
 import LoadingSpinner from "@/components/LoadingSpinner.vue";
 import PageNotFound from "./PageNotFound.vue";
+import TheVideoPlayer from "@/components/film_displayers/TheVideoPlayer.vue";
 
 const store = useFilmStore();
 const route = useRoute();
