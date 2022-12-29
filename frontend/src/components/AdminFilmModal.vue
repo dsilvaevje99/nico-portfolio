@@ -44,7 +44,10 @@
           required
           displayAsterix
           validateOnBlur
-          :rules="urlRules"
+          :rules="[
+            ...urlRules,
+            (x: string) => ['youtube', 'youtu.be', 'vimeo'].some(a => x.includes(a)) || 'Only sources from YouTube & Vimeo are supported',
+            ]"
           @validated="(v) => (fieldsValidity.src = v)"
         />
         <TextInput
@@ -75,7 +78,10 @@
           formId="film-modal--form"
           required
           displayAsterix
-          :rules="[(x: string) => x.length > 0 || 'Slug cannot be empty']"
+          :rules="[
+            (x: string) => x.length > 0 || 'Slug cannot be empty',
+            (x: string) => (allSlugs.indexOf(x) === -1 || x === originalSlug) || 'This slug is already in use',
+            ]"
           @validated="(v) => (fieldsValidity.slug = v)"
         />
         <TextInput
@@ -260,6 +266,7 @@ const props = defineProps({
 const store = useFilmStore();
 
 const modalKey = ref<symbol>(Symbol());
+const originalSlug = ref<string>("");
 const film = ref<Film>({
   _id: "",
   placement: 1,
@@ -309,6 +316,7 @@ const isEditing = computed<boolean>(() => !!film.value?._id);
 const hasMadeChanges = computed<boolean>(
   () => JSON.stringify(props.editing) !== JSON.stringify(film.value)
 );
+const allSlugs = computed<string[]>(() => store.films.map((f: Film) => f.slug));
 
 const createExampleSlug = () => {
   if (film.value && film.value.title && !film.value.slug) {
@@ -396,6 +404,7 @@ const submitValues = (e: any) => {
 
 watch(props, () => {
   film.value = JSON.parse(JSON.stringify(props.editing));
+  originalSlug.value = film.value.slug;
   checkCreditValidity();
 });
 </script>
