@@ -38,14 +38,14 @@
       <AdminPhotoLink
         v-if="!store.editProcessOne"
         :url="store.adminURLs.processOne"
-        label="Process Section - img #1"
+        label="Process Section - img #1 (hidden on larger screens)"
         @edit="store.editProcessOne = true"
       />
       <PhotoLinkInput
         v-else
         v-model="processOne"
         name="processOne"
-        label="Process Section - img #1"
+        label="Process Section - img #1 (hidden on larger screens)"
         @submit="submitProcessOne"
       />
       <!-- ----------- -->
