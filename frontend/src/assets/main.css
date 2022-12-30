@@ -313,7 +313,7 @@ header {
 
 footer {
   text-align: center;
-  padding: 2rem var(--page-padding);
+  padding: 6rem var(--page-padding) 3rem;
   opacity: 0.5;
 }
 
