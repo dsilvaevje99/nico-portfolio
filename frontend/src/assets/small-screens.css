@@ -261,6 +261,14 @@ h2 {
   z-index: 2;
 }
 #featured-film-details--bg {
+  overflow: hidden;
+  background-color: transparent;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: 0 0 5% 5%;
+}
+/* #featured-film-details--bg {
   position: absolute;
   inset: 0;
   z-index: 1;
@@ -272,6 +280,27 @@ h2 {
     rgba(28, 28, 28, 1) 82%
   );
   border-radius: 0 0 5% 5%;
+} */
+#featured-film-details--bg:after {
+  content: "";
+  display: block;
+  z-index: -1;
+  position: absolute;
+  inset: -30%;
+  border-radius: 100000rem;
+  aspect-ratio: 1/1;
+  background-image: linear-gradient(
+    130deg,
+    rgba(28, 28, 28, 1) 15%,
+    rgba(0, 0, 0, 1) 50%,
+    rgba(28, 28, 28, 1) 92%
+  );
+  animation: rotate-gradient linear 10s infinite;
+}
+@keyframes rotate-gradient {
+  to {
+    transform: rotate(360deg);
+  }
 }
 #featured-film-details--content {
   display: flex;
