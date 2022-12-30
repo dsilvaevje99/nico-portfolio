@@ -157,7 +157,7 @@ watch(filmsCount, () => nextTick(() => getCardHeight()));
 
 onBeforeMount(() => {
   document.documentElement.setAttribute("data-theme", "admin");
-  if (filmStore.films.length <= 0) filmStore.getFilms();
-  if (inquiryStore.inquiries.length <= 0) inquiryStore.getInquiries();
+  if (filmStore.films.length == 0) filmStore.getFilms();
+  if (inquiryStore.inquiries.length == 0) inquiryStore.getInquiries();
 });
 </script>

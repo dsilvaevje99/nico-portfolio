@@ -7,17 +7,6 @@ import {
   getImgurImages,
 } from "@/api/photos.api";
 
-/* const MOCK_DATA: Photo[] = [];
-for (let i = 0; i < 15; i++) {
-  MOCK_DATA.push({
-    id: i,
-    url: `https://picsum.photos/${Math.floor(
-      Math.random() * (300 - 50 + 1) + 50
-    )}/${Math.floor(Math.random() * (300 - 50 + 1) + 50)}`,
-    alt: "",
-  });
-} */
-
 export const usePhotoStore = defineStore("photo", () => {
   const photoPageImages = ref<Photo[]>([]);
   const aboutCarouselImages = ref<Photo[]>([]);
@@ -30,7 +19,15 @@ export const usePhotoStore = defineStore("photo", () => {
     processThree: "",
     carouselAlbum: "",
   });
-  let dbCopy = {};
+  let dbCopy = {
+    _id: "",
+    photoPageAlbum: "",
+    profilePic: "",
+    processOne: "",
+    processTwo: "",
+    processThree: "",
+    carouselAlbum: "",
+  };
 
   const editPhotoPageAlbum = ref<Boolean>(false);
   const editProfilePic = ref<Boolean>(false);
