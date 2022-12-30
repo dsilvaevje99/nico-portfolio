@@ -24,8 +24,19 @@
   top: 1rem;
   right: var(--page-padding);
   padding: 0.1rem 0.35rem;
-  background-color: var(--bg-color);
+  background: transparent;
   border-radius: 0.25rem;
+  overflow: hidden;
+}
+
+.nav--toggle-btn:after {
+  content: "";
+  position: absolute;
+  background: inherit;
+  z-index: -1;
+  inset: 0;
+  background-color: var(--bg-color);
+  opacity: 0.6;
 }
 
 .nav--toggle-btn > svg {
