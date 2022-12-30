@@ -64,6 +64,7 @@
 <script lang="ts" setup>
 import { computed, ref, onBeforeMount } from "vue";
 import FilmGridTile from "@/components/film_displayers/FilmGridTile.vue";
+import LoadingSpinner from "@/components/LoadingSpinner.vue";
 import { useFilmStore } from "@/stores/film";
 import type { Film } from "@/../../common-types";
 

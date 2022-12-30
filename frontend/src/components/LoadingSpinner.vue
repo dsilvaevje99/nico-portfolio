@@ -67,6 +67,7 @@
   display: inline-block;
   overflow: hidden;
   background: none;
+  transform: scale(0.5);
 }
 .ldio-r95l2kqr0vp {
   width: 100%;
