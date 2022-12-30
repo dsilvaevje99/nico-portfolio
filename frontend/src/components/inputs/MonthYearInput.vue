@@ -5,18 +5,19 @@
       <label for="year">Year</label>
     </span>
     <div class="flex--row">
-      <TextInput
-        v-model="month"
-        id="month-input--container"
-        name="month"
-        label="Month"
-        formId="film-modal--form"
-        required
-        validateOnBlur
-        :rules="monthRules"
-        @validated="(v) => (fieldsValidity.month = v)"
-        @blur="emitVal"
-      />
+      <div class="input--container" id="month-input--container">
+        <select
+          v-model="month"
+          name="month"
+          form="film-modal--form"
+          required
+          @change="emitVal"
+        >
+          <option v-for="month in months" :key="month" :value="month">
+            {{ month }}
+          </option>
+        </select>
+      </div>
       <TextInput
         v-model.number="year"
         id="year-input--container"
@@ -38,7 +39,7 @@
 <script lang="ts" setup>
 import { ref, computed, watch, onMounted } from "vue";
 import TextInput from "./TextInput.vue";
-import { monthRules, yearRules } from "@/form-rules";
+import { yearRules } from "@/form-rules";
 
 const emit = defineEmits(["input", "validated"]);
 const props = defineProps({
@@ -48,10 +49,23 @@ const props = defineProps({
   },
 });
 
-const month = ref<string>("");
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+const month = ref<string>(months[new Date().getMonth()]);
 const year = ref<number>(new Date().getFullYear());
 const fieldsValidity = ref({
-  month: true,
   year: true,
 });
 const valid = computed<boolean>(

@@ -47,13 +47,6 @@ export const hashRules = [
   (v: string) => v.length <= 10 || "Hash cannot exceed 10 characters",
 ];
 
-const monthRegex =
-  /^(January|February|March|April|May|June|July|August|September|October|November|December)/i;
-export const monthRules = [
-  (v: string) => v.length > 0 || "Month cannot be empty",
-  (v: string) => monthRegex.test(v) || "Invalid month",
-];
-
 export const yearRules = [
   (v: number) => v > 2000 || "You weren't born yet, buckaroo",
   (v: number) => v <= new Date().getFullYear() + 1 || "Time traveling, are we?",
