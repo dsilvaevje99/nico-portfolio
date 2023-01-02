@@ -4,7 +4,7 @@
       <div id="admin-actions--container" v-if="hasMadeChanges">
         <button class="btn btn--filled-green" @click="saveAllChanges">
           Publish Changes
-          <LocalLoadingSpinner v-if="filmStore.showSavingLoader" />
+          <LocalLoadingSpinner v-if="showSavingLoader" />
         </button>
         <button class="btn btn--text-secondary" @click="undoAllChanges">
           Discard Changes
@@ -82,6 +82,17 @@
           <TheChangePasswordForm />
         </template>
       </AdminPageCard>
+      <AdminPageCard
+        id="admin-text--card-container"
+        class="admin-card--all-cols"
+      >
+        <template #title>
+          <font-awesome-icon icon="fa-solid fa-align-left" />Paragraphs
+        </template>
+        <template #body>
+          <TheAdminParagraphs />
+        </template>
+      </AdminPageCard>
 
       <AdminFilmModal
         :open="filmModal"
@@ -100,23 +111,32 @@ import TheAdminPhotos from "@/components/TheAdminPhotos.vue";
 import { useFilmStore } from "@/stores/film";
 import { usePhotoStore } from "@/stores/photo";
 import { useInquiryStore } from "@/stores/inquiry";
+import { useParagraphStore } from "@/stores/paragraphs";
 import ExpandableInquiryCard from "@/components/cards/ExpandableInquiryCard.vue";
 import AdminFilmModal from "@/components/AdminFilmModal.vue";
 import LocalLoadingSpinner from "@/components/LocalLoadingSpinner.vue";
 import type { Film } from "@/../../common-types";
 import TheChangePasswordForm from "@/components/forms/TheChangePasswordForm.vue";
+import TheAdminParagraphs from "@/components/TheAdminParagraphs.vue";
 
 const filmStore = useFilmStore();
 const photoStore = usePhotoStore();
 const inquiryStore = useInquiryStore();
+const paragraphStore = useParagraphStore();
 
 const filmModal = ref<boolean>(false);
 const editingFilm = ref<Film>();
+const showSavingLoader = computed(
+  () => filmStore.showSavingLoader || paragraphStore.showSavingLoader
+);
 
 const filmCardHeight = ref<number>(1);
 const filmsCount = computed<number>(() => filmStore.films.length);
 const hasMadeChanges = computed<boolean>(
-  () => filmStore.hasMadeChanges || photoStore.hasMadeChanges
+  () =>
+    filmStore.hasMadeChanges ||
+    photoStore.hasMadeChanges ||
+    paragraphStore.hasMadeChanges
 );
 const gridTemplateRows = computed<string>(
   () => `${filmCardHeight.value}px auto`
@@ -133,17 +153,15 @@ const addFilm = () => {
 };
 
 const saveAllChanges = () => {
-  if (filmStore.hasMadeChanges) {
-    filmStore.saveChanges();
-  }
-  if (photoStore.hasMadeChanges) {
-    photoStore.saveChanges();
-  }
+  if (filmStore.hasMadeChanges) filmStore.saveChanges();
+  if (photoStore.hasMadeChanges) photoStore.saveChanges();
+  if (paragraphStore.hasMadeChanges) paragraphStore.saveChanges();
 };
 
 const undoAllChanges = () => {
-  filmStore.undoChanges();
-  photoStore.undoChanges();
+  if (filmStore.hasMadeChanges) filmStore.undoChanges();
+  if (photoStore.hasMadeChanges) photoStore.undoChanges();
+  if (paragraphStore.hasMadeChanges) paragraphStore.undoChanges();
 };
 
 const getCardHeight = () => {

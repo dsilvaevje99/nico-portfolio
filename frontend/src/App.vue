@@ -17,8 +17,8 @@
 <script setup lang="ts">
 import { onBeforeMount } from "vue";
 import { usePhotoStore } from "@/stores/photo";
-import { isLoggedIn } from "@/api/auth.api";
 import { useAuthStore } from "./stores/auth";
+import { useParagraphStore } from "@/stores/paragraphs";
 import { RouterView } from "vue-router";
 import TheHeader from "@/components/header/TheHeader.vue";
 import TheFooter from "@/components/TheFooter.vue";
@@ -27,13 +27,12 @@ import TheNotificationStack from "@/components/cards/TheNotificationStack.vue";
 
 const photoStore = usePhotoStore();
 const authStore = useAuthStore();
+const paragraphStore = useParagraphStore();
 
 onBeforeMount(async () => {
-  authStore.loggedIn = await isLoggedIn();
-
-  if (photoStore.photoPageImages.length <= 0) {
-    photoStore.initialFetch();
-  }
+  authStore.checkLoginStatus();
+  paragraphStore.initialFetch();
+  photoStore.initialFetch();
 });
 </script>
 

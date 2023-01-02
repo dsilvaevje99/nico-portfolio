@@ -27,6 +27,7 @@ import {
   faArrowRightFromBracket,
   faCircleExclamation,
   faCircleCheck,
+  faAlignLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faBuilding,
@@ -54,6 +55,7 @@ library.add(
   faArrowRightFromBracket,
   faCircleExclamation,
   faCircleCheck,
+  faAlignLeft,
   faAt,
   faBuilding,
   faStarOutlined,

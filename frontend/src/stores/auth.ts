@@ -1,5 +1,6 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
+import { isLoggedIn } from "@/api/auth.api";
 
 export const useAuthStore = defineStore("auth", () => {
   const loggedIn = ref<boolean>(false);
@@ -10,6 +11,7 @@ export const useAuthStore = defineStore("auth", () => {
     username.value = user;
   };
   const logout = () => (loggedIn.value = false);
+  const checkLoginStatus = async () => (loggedIn.value = await isLoggedIn());
 
-  return { loggedIn, username, login, logout };
+  return { loggedIn, username, login, logout, checkLoginStatus };
 });

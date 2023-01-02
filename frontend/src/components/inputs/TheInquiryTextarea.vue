@@ -1,5 +1,5 @@
 <template>
-  <div class="input--container flex-column" id="contact--inquiry-input">
+  <div class="input--container flex--column" id="contact--inquiry-input">
     <label for="inquiry" class="sr-only">Reason for inquiry</label>
     <textarea
       :value="props.modelValue"

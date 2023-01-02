@@ -51,3 +51,7 @@ export const yearRules = [
   (v: number) => v > 2000 || "You weren't born yet, buckaroo",
   (v: number) => v <= new Date().getFullYear() + 1 || "Time traveling, are we?",
 ];
+
+export const paragraphRules = [
+  (v: string) => v.length >= 200 || "Paragraph must be at least 200 characters",
+];

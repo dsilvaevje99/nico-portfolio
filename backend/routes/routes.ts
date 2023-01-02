@@ -5,6 +5,7 @@ import Film from "./film";
 import Photo from "./photo";
 import Contact from "./contact";
 import Auth from "./auth";
+import Paragraph from "./paragraph";
 
 class Routes {
   public express: express.Application;
@@ -28,6 +29,7 @@ class Routes {
     this.express.use("/", Photo);
     this.express.use("/", Contact);
     this.express.use("/", Auth);
+    this.express.use("/", Paragraph);
   }
 }
 

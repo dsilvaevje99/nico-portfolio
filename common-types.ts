@@ -58,3 +58,9 @@ export interface Inquiry {
   date: Date;
   opened: boolean;
 }
+
+export interface Paragraph {
+  _id: string;
+  name: string;
+  body: string;
+}

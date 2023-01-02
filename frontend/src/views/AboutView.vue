@@ -3,18 +3,16 @@
     <h1 class="title">About</h1>
     <div id="about--profile-pic">
       <div class="img-container--square">
-        <img class="img--square" :src="store.adminURLs.profilePic" alt="" />
+        <img
+          class="img--square"
+          :src="photoStore.adminURLs.profilePic"
+          alt=""
+        />
       </div>
     </div>
     <section id="about--intro-section">
-      <p>
-        Yup, that’s me. You’re probably wondering how I got into this
-        situation... Dsakdjn asdkj ns adjna.s, fopnaop3fnfka l skalf a lak f.
-        Qiufaf, asufbpoas afskj nkasnf mf. ams, jan lk amm.dffma.kw fmf. Yup,
-        that’s me. You’re probably wondering how I got into this situation...
-        Dsakdjn asdkj ns adjna.s, fopnaop3fnfka l skalf a lak f. Qiufaf,
-        asufbpoas afskj nkasnf mf. ams, jan lk amm.dffma.kw fmf.
-      </p>
+      <SkeletonLoader :lines="6" v-if="!paragraphStore.intro.body" />
+      <p v-else v-html="paragraphStore.intro.body"></p>
       <a class="btn btn--text-primary" href="#contact">
         <font-awesome-icon icon="fa-solid fa-arrow-down" />
         Contact
@@ -22,40 +20,49 @@
     </section>
     <h2 class="title" id="about--title-background">Background</h2>
     <section id="about--background-section">
-      <p>
-        Yup, that’s me. You’re probably wondering how I got into this
-        situation... Dsakdjn asdkj ns adjna.s, fopnaop3fnfka l skalf a lak f.
-        Qiufaf, asufbpoas afskj nkasnf mf. ams, jan lk amm.dffma.kw fmf.
-      </p>
+      <SkeletonLoader :lines="4" v-if="!paragraphStore.background.body" />
+      <p v-else v-html="paragraphStore.background.body"></p>
     </section>
     <h2 class="title" id="about--title-process">Process</h2>
     <section id="about--process-section">
-      <p id="process--p1">
-        Yup, that’s me. You’re probably wondering how I got into this
-        situation... Dsakdjn asdkj ns adjna.s, fopnaop3fnfka l skalf a lak f.
-        Qiufaf, asufbpoas afskj nkasnf mf. ams, jan lk amm.dffma.kw fmf.
-      </p>
+      <SkeletonLoader
+        :lines="3"
+        v-if="!paragraphStore.processOne.body"
+        id="process--p1"
+      />
+      <p v-else id="process--p1" v-html="paragraphStore.processOne.body"></p>
       <div class="img-container--square" id="process--img1">
-        <img class="img--square" :src="store.adminURLs.processOne" alt="" />
+        <img
+          class="img--square"
+          :src="photoStore.adminURLs.processOne"
+          alt=""
+        />
       </div>
       <div class="img-container--square" id="process--img2">
-        <img class="img--square" :src="store.adminURLs.processTwo" alt="" />
+        <img
+          class="img--square"
+          :src="photoStore.adminURLs.processTwo"
+          alt=""
+        />
       </div>
-      <p id="process--p2">
-        Yup, that’s me. You’re probably wondering how I got into this
-        situation... Dsakdjn asdkj ns adjna.s, fopnaop3fnfka l skalf a lak f.
-        Qiufaf, asufbpoas afskj nkasnf mf. ams, jan lk amm.dffma.kw fmf.
-      </p>
-      <p id="process--p3">
-        Yup, that’s me. You’re probably wondering how I got into this
-        situation... Dsakdjn asdkj ns adjna.s, fopnaop3fnfka l skalf a lak f.
-        Qiufaf, asufbpoas afskj nkasnf mf. ams, jan lk amm.dffma.kw fmf. Yup,
-        that’s me. You’re probably wondering how I got into this situation...
-        Dsakdjn asdkj ns adjna.s, fopnaop3fnfka l skalf a lak f. Qiufaf,
-        asufbpoas afskj nkasnf mf. ams, jan lk amm.dffma.kw fmf.
-      </p>
+      <SkeletonLoader
+        :lines="4"
+        v-if="!paragraphStore.processTwo.body"
+        id="process--p2"
+      />
+      <p v-else id="process--p2" v-html="paragraphStore.processTwo.body"></p>
+      <SkeletonLoader
+        :lines="5"
+        v-if="!paragraphStore.processThree.body"
+        id="process--p3"
+      />
+      <p v-else id="process--p3" v-html="paragraphStore.processThree.body"></p>
       <div class="img-container--square" id="process--img3">
-        <img class="img--square" :src="store.adminURLs.processThree" alt="" />
+        <img
+          class="img--square"
+          :src="photoStore.adminURLs.processThree"
+          alt=""
+        />
       </div>
     </section>
     <h2 class="title" id="about--title-gallery">Gallery</h2>
@@ -74,8 +81,11 @@ import { onBeforeMount } from "vue";
 import ImageCarousel from "@/components/photo_displayers/ImageCarousel.vue";
 import TheContactForm from "@/components/forms/TheContactForm.vue";
 import { usePhotoStore } from "@/stores/photo";
+import { useParagraphStore } from "@/stores/paragraphs";
+import SkeletonLoader from "@/components/SkeletonLoader.vue";
 
-const store = usePhotoStore();
+const photoStore = usePhotoStore();
+const paragraphStore = useParagraphStore();
 
 onBeforeMount(() =>
   document.documentElement.setAttribute("data-theme", "light")

@@ -1,5 +1,5 @@
 <template>
-  <div class="input--container flex-column">
+  <div class="input--container flex--column">
     <label :for="props.name" :class="{ 'sr-only': props.hideLabel }">{{
       props.label
     }}</label>
@@ -14,18 +14,30 @@
       @blur="validate"
       :class="{
         'input--invalid-state': error,
+        'input--bg-secondary': props.secondaryBg,
       }"
     ></textarea>
     <div class="textarea--bottom-area">
       <button
+        v-if="props.originalValue"
+        :disabled="props.originalValue == props.modelValue"
+        class="btn btn--size-small btn--text-secondary"
+        @click="undo(props.originalValue)"
+      >
+        Undo changes
+      </button>
+      <button
         v-if="showClearBtn"
         class="btn btn--size-small btn--text-secondary"
-        @click="clear"
+        @click="undo('')"
       >
         Clear
       </button>
       <p v-else-if="error" class="input--error-msg">{{ error }}</p>
-      <span class="textarea--counter">{{ counter }}</span>
+      <span class="textarea--counter"
+        ><span v-if="props.maxLength < 0">Character count: </span>
+        {{ counter }}</span
+      >
     </div>
     <p v-if="showClearBtn && error" class="input--error-msg">{{ error }}</p>
   </div>
@@ -59,7 +71,8 @@ const props = defineProps({
   },
   formId: {
     type: String,
-    required: true,
+    required: false,
+    default: "",
   },
   required: {
     type: Boolean,
@@ -73,7 +86,8 @@ const props = defineProps({
   },
   maxLength: {
     type: Number,
-    required: true,
+    required: false,
+    default: -1,
   },
   rules: {
     type: Array as () => Function[],
@@ -85,14 +99,26 @@ const props = defineProps({
     required: false,
     default: false,
   },
+  secondaryBg: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
+  originalValue: {
+    type: String,
+    required: false,
+    default: "",
+  },
 });
 
 const emit = defineEmits(["update:modelValue", "validated"]);
 
 const violatedRule = ref<number>();
 const error = ref<string>("");
-const counter = computed(
-  () => `${props.modelValue.length} / ${props.maxLength}`
+const counter = computed(() =>
+  props.maxLength >= 0
+    ? `${props.modelValue.length} / ${props.maxLength}`
+    : props.modelValue.length
 );
 const showClearBtn = computed(
   () => !props.hideClearBtn && props.modelValue.length > 0
@@ -119,5 +145,8 @@ const validate = (e: any) => {
   emit("validated", !error.value);
 };
 
-const clear = () => emit("update:modelValue", "");
+const undo = (val: string) => {
+  emit("update:modelValue", val);
+  error.value = "";
+};
 </script>
