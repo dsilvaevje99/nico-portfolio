@@ -1,5 +1,6 @@
 <template>
-  <div class="photography--grid">
+  <SkeletonLoader v-if="props.images.length === 0" type="image-grid" />
+  <div v-else class="photography--grid">
     <div
       v-for="img in props.images"
       class="photo--container"
@@ -23,6 +24,7 @@
 import PopupModal from "@/components/PopupModal.vue";
 import { ref } from "vue";
 import type { Photo } from "@/../../../common-types";
+import SkeletonLoader from "../SkeletonLoader.vue";
 
 const props = defineProps({
   images: {

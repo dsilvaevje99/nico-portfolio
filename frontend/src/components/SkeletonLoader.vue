@@ -1,7 +1,14 @@
 <template>
-  <div class="flex--column skeleton-loader--container">
+  <div v-if="props.type === 'image-grid'" class="photography--grid">
     <div
-      class="skeleton-loader--item"
+      v-for="n in 10"
+      :key="`${String(loaderId)}-${n}`"
+      class="skeleton-loader--item skeleton-loader--image photo--container"
+    ></div>
+  </div>
+  <div v-else class="flex--column skeleton-loader--text-container">
+    <div
+      class="skeleton-loader--item skeleton-loader--text"
       v-for="n in props.lines"
       :key="`${String(loaderId)}-${n}`"
       :style="getWidth(n)"
@@ -13,6 +20,11 @@
 import { ref } from "vue";
 
 const props = defineProps({
+  type: {
+    type: String,
+    required: false,
+    default: "text",
+  },
   lines: {
     type: Number,
     required: false,
