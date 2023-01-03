@@ -19,9 +19,14 @@ export const useFilmStore = defineStore("film", () => {
   const featuredFilm = computed<Film | undefined>(() =>
     films.value.find((f) => f.featured)
   );
-  const hasMadeChanges = computed<boolean>(
-    () => JSON.stringify(films.value) !== JSON.stringify(dbCopy)
-  );
+  const hasMadeChanges = computed<boolean>(() => {
+    const filmsWithoutFrames = films.value.map((film: Film) => {
+      const copy = { ...film };
+      delete copy.frames;
+      return copy;
+    });
+    return JSON.stringify(filmsWithoutFrames) !== JSON.stringify(dbCopy);
+  });
   const needsPlacementReassignment = computed<boolean>(() => {
     let counter = 0;
     let result = false;
