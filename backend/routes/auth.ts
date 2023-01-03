@@ -26,6 +26,7 @@ class AuthAPI {
   private routes(): void {
     this.express.post(
       "/user",
+      auth,
       body("username")
         .not()
         .isEmpty()
@@ -38,7 +39,6 @@ class AuthAPI {
         .isLength({ min: 7, max: 30 })
         .trim()
         .escape(),
-      auth,
       async (req, res, next) => {
         this.logger.info("url:::::::" + req.url);
 
@@ -68,6 +68,7 @@ class AuthAPI {
 
     this.express.put(
       "/user",
+      auth,
       body("username")
         .not()
         .isEmpty()
@@ -80,7 +81,6 @@ class AuthAPI {
         .isLength({ min: 7, max: 30 })
         .trim()
         .escape(),
-      auth,
       async (req, res, next) => {
         this.logger.info("url:::::::" + req.url);
 
@@ -149,13 +149,13 @@ class AuthAPI {
 
     this.express.post(
       "/logout",
+      auth,
       body("username")
         .not()
         .isEmpty()
         .isLength({ min: 3, max: 20 })
         .trim()
         .escape(),
-      auth,
       async (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty) {

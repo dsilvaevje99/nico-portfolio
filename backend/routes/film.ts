@@ -42,6 +42,7 @@ class FilmAPI {
 
     this.express.post(
       "/films",
+      auth,
       body("placement").isInt({ min: 0 }),
       body(["title", "type", "date", "location"])
         .not()
@@ -61,7 +62,6 @@ class FilmAPI {
       body("credits.*.role").isString().not().isEmpty().trim().escape(),
       body("credits.*.name").isArray(),
       body("featured").isBoolean(),
-      auth,
       async (req, res, next) => {
         this.logger.info("POST:::::::" + req.url);
         const data = new Model({ ...req.body });
@@ -81,6 +81,7 @@ class FilmAPI {
 
     this.express.put(
       "/films/:id",
+      auth,
       param("id").not().isEmpty().trim().escape(),
       body("placement").isInt({ min: 0 }),
       body(["title", "type", "date", "location"])
@@ -101,7 +102,6 @@ class FilmAPI {
       body("credits.*.role").isString().not().isEmpty().trim().escape(),
       body("credits.*.name").isArray(),
       body("featured").isBoolean(),
-      auth,
       async (req, res, next) => {
         this.logger.info("PUT:::::::" + req.url);
         try {
@@ -128,8 +128,8 @@ class FilmAPI {
 
     this.express.delete(
       "/films/:id",
-      param("id").not().isEmpty().trim().escape(),
       auth,
+      param("id").not().isEmpty().trim().escape(),
       async (req, res, next) => {
         this.logger.info("DELETE:::::::" + req.url);
         try {

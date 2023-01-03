@@ -66,6 +66,7 @@ class InquiryAPI {
 
     this.express.put(
       "/inquiries/:id",
+      auth,
       param("id").not().isEmpty().trim().escape(),
       body("name")
         .not()
@@ -78,7 +79,6 @@ class InquiryAPI {
       body("body").not().isEmpty().isLength({ min: 10 }).trim().escape(),
       body("date").not().isEmpty().isString().trim().escape(),
       body("opened").isBoolean(),
-      auth,
       async (req, res, next) => {
         this.logger.info("PUT:::::::" + req.url);
         try {
@@ -105,8 +105,8 @@ class InquiryAPI {
 
     this.express.delete(
       "/inquiries/:id",
-      param("id").not().isEmpty().trim().escape(),
       auth,
+      param("id").not().isEmpty().trim().escape(),
       async (req, res, next) => {
         this.logger.info("DELETE:::::::" + req.url);
         try {

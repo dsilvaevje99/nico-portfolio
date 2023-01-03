@@ -64,6 +64,7 @@ class PhotoAPI {
 
     this.express.put(
       "/photos",
+      auth,
       body(["_id", "photoPageAlbum", "carouselAlbum"])
         .not()
         .isEmpty()
@@ -76,7 +77,6 @@ class PhotoAPI {
         .isURL()
         .trim()
         .customSanitizer((url) => sanitizeUrl(url)),
-      auth,
       async (req, res, next) => {
         this.logger.info("POST:::::::" + req.url);
         try {
