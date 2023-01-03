@@ -371,12 +371,19 @@ header {
   font-size: 2rem;
 }
 
-.social--container > * {
-  padding: 0 1rem;
+.social--container > a {
+  margin: 0 1rem;
+  text-decoration: none;
+  color: var(--text-primary);
+  transition: transform 500ms ease;
 }
 
-.social--container > img {
-  width: 2rem;
+.social--container > a:hover {
+  transform: scale(1.5);
+}
+
+.social--container > a > img {
+  width: 1.5rem;
 }
 
 footer {
