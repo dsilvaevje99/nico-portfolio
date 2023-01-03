@@ -2,7 +2,7 @@
   <div v-if="props.type === 'image-grid'" class="photography--grid">
     <div
       v-for="n in 10"
-      :key="`${String(loaderId)}-${n}`"
+      :key="`${loaderId}-${n}`"
       class="skeleton-loader--item skeleton-loader--image photo--container"
     ></div>
   </div>
@@ -10,7 +10,7 @@
     <div
       class="skeleton-loader--item skeleton-loader--text"
       v-for="n in props.lines"
-      :key="`${String(loaderId)}-${n}`"
+      :key="`${loaderId}-${n}`"
       :style="getWidth(n)"
     ></div>
   </div>
@@ -32,7 +32,7 @@ const props = defineProps({
   },
 });
 
-const loaderId = ref<symbol>(Symbol());
+const loaderId = ref<string>((new Date().getTime() + Math.random()).toString());
 
 const getWidth = (number: Number) => {
   const min = number === props.lines ? 25 : 75; // Make last line possibly shorter
