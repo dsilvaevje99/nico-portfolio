@@ -20,8 +20,10 @@
     <div class="textarea--bottom-area">
       <button
         v-if="props.originalValue"
-        :disabled="props.originalValue == props.modelValue"
         class="btn btn--size-small btn--text-secondary"
+        :style="
+          props.originalValue == props.modelValue ? 'visibility: hidden' : ''
+        "
         @click="undo(props.originalValue)"
       >
         Undo changes
