@@ -384,12 +384,14 @@ header {
 .social--container > a {
   margin: 0 1rem;
   text-decoration: none;
-  color: var(--text-primary);
-  transition: transform 500ms ease;
+  color: black;
+  opacity: 0.6;
+  transition: all 500ms ease;
 }
 
 .social--container > a:hover {
-  transform: scale(1.5);
+  opacity: 1;
+  transform: scale(1.2);
 }
 
 .social--container > a > img {
