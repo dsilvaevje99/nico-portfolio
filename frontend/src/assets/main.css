@@ -384,7 +384,7 @@ header {
 .social--container > a {
   margin: 0 1rem;
   text-decoration: none;
-  color: black;
+  color: var(--text-primary);
   opacity: 0.6;
   transition: all 500ms ease;
 }
