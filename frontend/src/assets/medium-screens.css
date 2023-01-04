@@ -139,6 +139,9 @@
   #featured-film-details--container {
     padding: 5rem 0 5rem 3rem;
   }
+  #featured-film-details--bg:after {
+    inset: -100%;
+  }
   /* -------------------- */
 
   /* Film details page grid layout */
@@ -209,5 +212,8 @@
   #featured-film-details--table {
     display: initial;
     width: max-content;
+  }
+  #featured-film-details--bg:after {
+    inset: -150%;
   }
 }
